@@ -1,0 +1,21 @@
+modLoader="javafml"
+loaderVersion="[39,)"
+issueTrackerURL="https://github.com/Mrbysco/YouAreHere/issues"
+license="MIT"
+
+[[mods]]
+modId="youarehere"
+version="${file.jarVersion}"
+displayName="You Are Here"
+displayURL="https://www.curseforge.com/minecraft/mc-mods/you-are-here"
+authors="Mrbysco"
+description='''
+Tells you where you are.
+'''
+credits="Darkosto for the idea"
+[[dependencies.youarehere]]
+modId="minecraft"
+mandatory=true
+versionRange="[1.18.1,)"
+ordering="NONE"
+side="BOTH"

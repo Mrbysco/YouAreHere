@@ -1,0 +1,18 @@
+{
+  "type": "youarehere:conditional",
+  "places": [
+    {
+      "conditions": [
+        {
+          "type": "youarehere:enable_biome_places"
+        }
+      ],
+      "place": {
+        "type": "youarehere:biome",
+        "soundLocation": "minecraft:ui.toast.in",
+        "title": "biome.minecraft.end_midlands",
+        "biome": "minecraft:end_midlands"
+      }
+    }
+  ]
+}
