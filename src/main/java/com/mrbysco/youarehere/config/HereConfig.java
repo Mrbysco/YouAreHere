@@ -8,6 +8,7 @@ public class HereConfig {
 	public static class Common {
 		public final BooleanValue enableBiomePlaces;
 		public final BooleanValue enableDimensionPlaces;
+		public final BooleanValue enableYPlaces;
 
 		Common(ForgeConfigSpec.Builder builder) {
 			builder.comment("General settings")
@@ -20,6 +21,10 @@ public class HereConfig {
 			enableDimensionPlaces = builder
 					.comment("Dictates whether or not the vanilla dimension places are enabled (excluding the Overworld)")
 					.define("enableDimensionPlaces", true);
+
+			enableYPlaces = builder
+					.comment("Dictates whether or not the default y place for going below 0 is enabled")
+					.define("enableYPlaces", true);
 
 			builder.pop();
 		}

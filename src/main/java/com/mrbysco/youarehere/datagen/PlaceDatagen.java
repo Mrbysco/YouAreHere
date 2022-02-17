@@ -6,8 +6,10 @@ import com.mrbysco.youarehere.datagen.provider.PlaceProvider;
 import com.mrbysco.youarehere.datagen.provider.builder.BiomePlaceBuilder;
 import com.mrbysco.youarehere.datagen.provider.builder.ConditionalPlace;
 import com.mrbysco.youarehere.datagen.provider.builder.DimensionPlaceBuilder;
+import com.mrbysco.youarehere.datagen.provider.builder.YPlaceBuilder;
 import com.mrbysco.youarehere.registry.condition.EnableBiomePlacesCondition;
 import com.mrbysco.youarehere.registry.condition.EnableDimensionPlacesCondition;
+import com.mrbysco.youarehere.registry.condition.EnableYPlacesCondition;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
@@ -78,6 +80,18 @@ public class PlaceDatagen {
 									::save
 					)
 					.build(consumer, new ResourceLocation(YouAreHere.MOD_ID, "dimension_the_end"));
+
+			new ConditionalPlace.Builder()
+					.addCondition(
+							new EnableYPlacesCondition()
+					)
+					.addPlace(
+							YPlaceBuilder.y(-64, 0)
+									.setTitle("Below Zero")
+									.setSoundLocation(SoundEvents.LAVA_POP.getLocation())
+									::save
+					)
+					.build(consumer, new ResourceLocation(YouAreHere.MOD_ID, "y_below_zero"));
 		}
 	}
 }

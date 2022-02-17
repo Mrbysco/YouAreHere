@@ -4,6 +4,7 @@ import com.mrbysco.youarehere.YouAreHere;
 import com.mrbysco.youarehere.datagen.provider.builder.ConditionalPlace;
 import com.mrbysco.youarehere.registry.condition.EnableBiomePlacesCondition;
 import com.mrbysco.youarehere.registry.condition.EnableDimensionPlacesCondition;
+import com.mrbysco.youarehere.registry.condition.EnableYPlacesCondition;
 import com.mrbysco.youarehere.resources.places.BasePlace;
 import com.mrbysco.youarehere.resources.places.BiomePlace;
 import com.mrbysco.youarehere.resources.places.DimensionPlace;
@@ -37,6 +38,7 @@ public class PlaceTypeRegistry {
 
 		CraftingHelper.register(EnableBiomePlacesCondition.Serializer.INSTANCE);
 		CraftingHelper.register(EnableDimensionPlacesCondition.Serializer.INSTANCE);
+		CraftingHelper.register(EnableYPlacesCondition.Serializer.INSTANCE);
 
 		event.getRegistry().register(new ConditionalPlace.Serializer<BasePlace>().setRegistryName(new ResourceLocation(YouAreHere.MOD_ID, "conditional")));
 	}

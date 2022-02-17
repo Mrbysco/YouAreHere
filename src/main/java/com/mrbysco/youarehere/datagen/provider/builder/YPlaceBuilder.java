@@ -20,6 +20,15 @@ public class YPlaceBuilder implements PlaceBuilder {
 	private int minY;
 	private int maxY;
 
+	public YPlaceBuilder(int minY, int maxY) {
+		this.minY = minY;
+		this.maxY = maxY;
+	}
+
+	public static YPlaceBuilder y(int minY, int maxY) {
+		return new YPlaceBuilder(minY, maxY);
+	}
+
 	public YPlaceBuilder setSoundLocation(ResourceLocation soundLocation) {
 		this.soundLocation = soundLocation;
 		return this;
@@ -88,7 +97,7 @@ public class YPlaceBuilder implements PlaceBuilder {
 		}
 
 		public PlaceType<?> getType() {
-			return PlaceTypeRegistry.BIOME_TYPE.get();
+			return PlaceTypeRegistry.Y_LEVEL_TYPE.get();
 		}
 
 		public ResourceLocation getId() {
