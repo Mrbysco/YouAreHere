@@ -2,6 +2,7 @@ package com.mrbysco.youarehere;
 
 import com.mrbysco.youarehere.config.HereConfig;
 import com.mrbysco.youarehere.network.PacketHandler;
+import com.mrbysco.youarehere.registry.PlaceSounds;
 import com.mrbysco.youarehere.registry.PlaceTypeRegistry;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -24,6 +25,7 @@ public class YouAreHere {
         eventBus.addListener(this::setup);
 
         PlaceTypeRegistry.PLACE_TYPE.register(eventBus);
+        PlaceSounds.SOUND_EVENTS.register(eventBus);
     }
 
     private void setup(final FMLCommonSetupEvent event) {

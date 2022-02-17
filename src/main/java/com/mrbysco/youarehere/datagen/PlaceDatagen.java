@@ -7,6 +7,7 @@ import com.mrbysco.youarehere.datagen.provider.builder.BiomePlaceBuilder;
 import com.mrbysco.youarehere.datagen.provider.builder.ConditionalPlace;
 import com.mrbysco.youarehere.datagen.provider.builder.DimensionPlaceBuilder;
 import com.mrbysco.youarehere.datagen.provider.builder.YPlaceBuilder;
+import com.mrbysco.youarehere.registry.PlaceSounds;
 import com.mrbysco.youarehere.registry.condition.EnableBiomePlacesCondition;
 import com.mrbysco.youarehere.registry.condition.EnableDimensionPlacesCondition;
 import com.mrbysco.youarehere.registry.condition.EnableYPlacesCondition;
@@ -16,6 +17,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.common.data.SoundDefinitionsProvider;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
@@ -31,6 +33,7 @@ public class PlaceDatagen {
 		ExistingFileHelper helper = event.getExistingFileHelper();
 		if (event.includeClient()) {
 			generator.addProvider(new Places(generator));
+			generator.addProvider(new PlaceSoundProvider(generator, helper));
 		}
 	}
 
@@ -92,6 +95,50 @@ public class PlaceDatagen {
 									::save
 					)
 					.build(consumer, new ResourceLocation(YouAreHere.MOD_ID, "y_below_zero"));
+		}
+	}
+
+	public static class PlaceSoundProvider extends SoundDefinitionsProvider {
+		public PlaceSoundProvider(DataGenerator generator, ExistingFileHelper helper) {
+			super(generator, YouAreHere.MOD_ID, helper);
+		}
+
+		@Override
+		public void registerSounds() {
+			this.add(PlaceSounds.SOUND_1, definition()
+					.with(sound(modLoc("empty")))
+			);
+			this.add(PlaceSounds.SOUND_2, definition()
+					.with(sound(modLoc("empty")))
+			);
+			this.add(PlaceSounds.SOUND_3, definition()
+					.with(sound(modLoc("empty")))
+			);
+			this.add(PlaceSounds.SOUND_4, definition()
+					.with(sound(modLoc("empty")))
+			);
+			this.add(PlaceSounds.SOUND_5, definition()
+					.with(sound(modLoc("empty")))
+			);
+			this.add(PlaceSounds.SOUND_6, definition()
+					.with(sound(modLoc("empty")))
+			);
+			this.add(PlaceSounds.SOUND_7, definition()
+					.with(sound(modLoc("empty")))
+			);
+			this.add(PlaceSounds.SOUND_8, definition()
+					.with(sound(modLoc("empty")))
+			);
+			this.add(PlaceSounds.SOUND_9, definition()
+					.with(sound(modLoc("empty")))
+			);
+			this.add(PlaceSounds.SOUND_10, definition()
+					.with(sound(modLoc("empty")))
+			);
+		}
+
+		public ResourceLocation modLoc(String name) {
+			return new ResourceLocation(YouAreHere.MOD_ID, name);
 		}
 	}
 }
