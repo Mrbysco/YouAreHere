@@ -1,0 +1,6 @@
+{
+	"type": "youarehere:biome",
+	"soundLocation": "minecraft:ui.toast.in",
+	"title": "biome.minecraft.badlands",
+	"biome": "minecraft:badlands"
+}

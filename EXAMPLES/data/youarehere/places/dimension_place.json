@@ -1,0 +1,6 @@
+{
+	"type": "youarehere:dimension",
+	"soundLocation": "minecraft:ui.toast.challenge_complete",
+	"title": "youarehere.dimension.the_end",
+	"dimension": "minecraft:the_end"
+}
