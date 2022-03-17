@@ -26,48 +26,40 @@ public class ConditionalPlace {
 	@ObjectHolder("youarehere:conditional")
 	public static final PlaceType<BasePlace> PLACE_TYPE = null;
 
-	public static ConditionalPlace.Builder builder()
-	{
+	public static ConditionalPlace.Builder builder() {
 		return new ConditionalPlace.Builder();
 	}
 
-	public static class Serializer<T extends BasePlace> implements PlaceType<T>
-	{
+	public static class Serializer<T extends BasePlace> implements PlaceType<T> {
 		private ResourceLocation name;
 
 		@Override
-		public PlaceType<?> setRegistryName(ResourceLocation name)
-		{
+		public PlaceType<?> setRegistryName(ResourceLocation name) {
 			this.name = name;
 			return this;
 		}
 
 		@Override
-		public ResourceLocation getRegistryName()
-		{
+		public ResourceLocation getRegistryName() {
 			return name;
 		}
 
 		@Override
-		public Class<PlaceType<?>> getRegistryType()
-		{
+		public Class<PlaceType<?>> getRegistryType() {
 			return ConditionalPlace.Serializer.<PlaceType<?>>castClass(PlaceType.class);
 		}
 
 		@SuppressWarnings("unchecked") // Need this wrapper, because generics
-		private static <G> Class<G> castClass(Class<?> cls)
-		{
-			return (Class<G>)cls;
+		private static <G> Class<G> castClass(Class<?> cls) {
+			return (Class<G>) cls;
 		}
 
 		@SuppressWarnings("unchecked") // We return a nested one, so we can't know what type it is.
 		@Override
-		public T fromJson(ResourceLocation placeId, JsonObject json)
-		{
+		public T fromJson(ResourceLocation placeId, JsonObject json) {
 			JsonArray items = GsonHelper.getAsJsonArray(json, "places");
 			int idx = 0;
-			for (JsonElement ele : items)
-			{
+			for (JsonElement ele : items) {
 				if (!ele.isJsonObject())
 					throw new JsonSyntaxException("Invalid places entry at index " + idx + " Must be JsonObject");
 				if (CraftingHelper.processConditions(GsonHelper.getAsJsonArray(ele.getAsJsonObject(), "conditions")))
@@ -78,31 +70,33 @@ public class ConditionalPlace {
 		}
 
 		//Should never get here as we return one of the places we wrap.
-		@Override public T fromNetwork(ResourceLocation placeId, FriendlyByteBuf buffer) { return null; }
-		@Override public void toNetwork(FriendlyByteBuf buffer, T place) {}
+		@Override
+		public T fromNetwork(ResourceLocation placeId, FriendlyByteBuf buffer) {
+			return null;
+		}
+
+		@Override
+		public void toNetwork(FriendlyByteBuf buffer, T place) {
+		}
 	}
 
-	public static class Builder
-	{
+	public static class Builder {
 		private List<ICondition[]> conditions = new ArrayList<>();
 		private List<FinishedPlace> places = new ArrayList<>();
 
 		private List<ICondition> currentConditions = new ArrayList<>();
 
-		public ConditionalPlace.Builder addCondition(ICondition condition)
-		{
+		public ConditionalPlace.Builder addCondition(ICondition condition) {
 			currentConditions.add(condition);
 			return this;
 		}
 
-		public ConditionalPlace.Builder addPlace(Consumer<Consumer<FinishedPlace>> callable)
-		{
+		public ConditionalPlace.Builder addPlace(Consumer<Consumer<FinishedPlace>> callable) {
 			callable.accept(this::addPlace);
 			return this;
 		}
 
-		public ConditionalPlace.Builder addPlace(FinishedPlace place)
-		{
+		public ConditionalPlace.Builder addPlace(FinishedPlace place) {
 			if (currentConditions.isEmpty())
 				throw new IllegalStateException("Can not add a place with no conditions.");
 			conditions.add(currentConditions.toArray(new ICondition[currentConditions.size()]));
@@ -111,13 +105,11 @@ public class ConditionalPlace {
 			return this;
 		}
 
-		public void build(Consumer<FinishedPlace> consumer, String namespace, String path)
-		{
+		public void build(Consumer<FinishedPlace> consumer, String namespace, String path) {
 			build(consumer, new ResourceLocation(namespace, path));
 		}
 
-		public void build(Consumer<FinishedPlace> consumer, ResourceLocation id)
-		{
+		public void build(Consumer<FinishedPlace> consumer, ResourceLocation id) {
 			if (!currentConditions.isEmpty())
 				throw new IllegalStateException("Invalid ConditionalPlace builder, Orphaned conditions");
 			if (places.isEmpty())
@@ -127,14 +119,12 @@ public class ConditionalPlace {
 		}
 	}
 
-	private static class Finished implements FinishedPlace
-	{
+	private static class Finished implements FinishedPlace {
 		private final ResourceLocation id;
 		private final List<ICondition[]> conditions;
 		private final List<FinishedPlace> places;
 
-		private Finished(ResourceLocation id, List<ICondition[]> conditions, List<FinishedPlace> places)
-		{
+		private Finished(ResourceLocation id, List<ICondition[]> conditions, List<FinishedPlace> places) {
 			this.id = id;
 			this.conditions = conditions;
 			this.places = places;
@@ -144,8 +134,7 @@ public class ConditionalPlace {
 		public void serializePlaceData(JsonObject json) {
 			JsonArray array = new JsonArray();
 			json.add("places", array);
-			for (int x = 0; x < conditions.size(); x++)
-			{
+			for (int x = 0; x < conditions.size(); x++) {
 				JsonObject holder = new JsonObject();
 
 				JsonArray conds = new JsonArray();
@@ -164,8 +153,7 @@ public class ConditionalPlace {
 		}
 
 		@Override
-		public PlaceType<?> getType()
-		{
+		public PlaceType<?> getType() {
 			return PLACE_TYPE;
 		}
 	}

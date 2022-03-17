@@ -11,7 +11,7 @@ import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import java.util.Objects;
 
-public class BiomePlace extends BasePlace{
+public class BiomePlace extends BasePlace {
 	private final ResourceLocation biomeLocation;
 
 	public BiomePlace(ResourceLocation id, ResourceLocation soundLocation, String title, String subtitle, int duration,
@@ -44,7 +44,7 @@ public class BiomePlace extends BasePlace{
 	@Override
 	public boolean matches(Player player) {
 		BlockPos pos = player.blockPosition();
-		return player.level.getBiome(pos).getRegistryName().equals(this.biomeLocation());
+		return player.level.getBiome(pos).value().getRegistryName().equals(this.biomeLocation());
 	}
 
 	@Override
@@ -72,7 +72,8 @@ public class BiomePlace extends BasePlace{
 			String sound = GsonHelper.getAsString(jsonObject, "soundLocation", "");
 			ResourceLocation soundLocation = sound.isEmpty() ? null : ResourceLocation.tryParse(sound);
 
-			if (!jsonObject.has("biome")) throw new com.google.gson.JsonSyntaxException("Missing biome, expected to find a location string");
+			if (!jsonObject.has("biome"))
+				throw new com.google.gson.JsonSyntaxException("Missing biome, expected to find a location string");
 			ResourceLocation biomeLocation = ResourceLocation.tryParse(GsonHelper.getAsString(jsonObject, "biome", ""));
 
 			return new BiomePlace(id, soundLocation, title, subtitle, duration, fadeInDuration, fadeOutDuration, biomeLocation);

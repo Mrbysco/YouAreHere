@@ -44,7 +44,7 @@ public class PlaceDatagen {
 
 		@Override
 		public void createPlaces(Consumer<FinishedPlace> consumer) {
-			for(Biome biome : ForgeRegistries.BIOMES.getValues()) {
+			for (Biome biome : ForgeRegistries.BIOMES.getValues()) {
 				ResourceLocation biomeLocation = biome.getRegistryName();
 				ResourceLocation id = new ResourceLocation(YouAreHere.MOD_ID, "biome_" + biomeLocation.getPath());
 				new ConditionalPlace.Builder()

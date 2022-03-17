@@ -86,16 +86,16 @@ public abstract class BasePlace {
 	}
 
 	public JsonObject toJson(JsonObject jsonobject) {
-		if(this.soundLocation != null) {
+		if (this.soundLocation != null) {
 			jsonobject.addProperty("soundLocation", this.soundLocation.toString());
 		}
 		jsonobject.addProperty("title", this.title);
 		jsonobject.addProperty("subtitle", this.subtitle);
-		if(this.duration > 0)
+		if (this.duration > 0)
 			jsonobject.addProperty("duration", this.duration);
-		if(this.fadeInDuration > 0)
+		if (this.fadeInDuration > 0)
 			jsonobject.addProperty("fadeInDuration", fadeInDuration);
-		if(this.fadeOutDuration > 0)
+		if (this.fadeOutDuration > 0)
 			jsonobject.addProperty("fadeOutDuration", fadeOutDuration);
 
 		return jsonobject;

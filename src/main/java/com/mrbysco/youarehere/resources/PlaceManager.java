@@ -61,7 +61,8 @@ public class PlaceManager extends SimpleJsonResourceReloadListener {
 		Builder<ResourceLocation, BasePlace> builder = ImmutableMap.builder();
 		for (Map.Entry<ResourceLocation, JsonElement> entry : elementMap.entrySet()) {
 			ResourceLocation resourcelocation = entry.getKey();
-			if (resourcelocation.getPath().startsWith("_")) continue; //Forge: filter anything beginning with "_" as it's used for metadata.
+			if (resourcelocation.getPath().startsWith("_"))
+				continue; //Forge: filter anything beginning with "_" as it's used for metadata.
 
 			try {
 				if (entry.getValue().isJsonObject() && !net.minecraftforge.common.crafting.CraftingHelper.processConditions(entry.getValue().getAsJsonObject(), "conditions")) {
@@ -90,8 +91,8 @@ public class PlaceManager extends SimpleJsonResourceReloadListener {
 
 	public static BasePlace fromJson(ResourceLocation location, JsonObject jsonObject) {
 		String s = GsonHelper.getAsString(jsonObject, "type");
-		PlaceType<? extends BasePlace> placeType = PlaceTypeRegistry.REGISTRY.getValue(new ResourceLocation(s));
-		if(placeType == null) {
+		PlaceType<? extends BasePlace> placeType = PlaceTypeRegistry.REGISTRY.get().getValue(new ResourceLocation(s));
+		if (placeType == null) {
 			throw new JsonSyntaxException("Invalid or unsupported place type '" + s + "'");
 		} else {
 			return placeType.fromJson(location, jsonObject);
@@ -139,12 +140,12 @@ public class PlaceManager extends SimpleJsonResourceReloadListener {
 
 	public <T extends BasePlace> List<T> getAllRecipesFor(PlaceType<T> placeType) {
 		return this.byType(placeType).values().stream().map((place) -> {
-			return (T)place;
+			return (T) place;
 		}).collect(Collectors.toList());
 	}
 
 	private <T extends BasePlace> Map<ResourceLocation, BasePlace> byType(PlaceType<T> placeType) {
-		return (Map<ResourceLocation, BasePlace>)(Map<ResourceLocation, T>)this.places.getOrDefault(placeType, Collections.emptyMap());
+		return (Map<ResourceLocation, BasePlace>) (Map<ResourceLocation, T>) this.places.getOrDefault(placeType, Collections.emptyMap());
 	}
 
 	public Optional<? extends BasePlace> byKey(ResourceLocation location) {

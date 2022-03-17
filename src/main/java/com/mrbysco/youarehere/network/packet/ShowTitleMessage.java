@@ -55,12 +55,12 @@ public class ShowTitleMessage {
 						minecraft.gui.resetTitleTimes();
 						minecraft.gui.setTimes(place.fadeInDuration(), place.duration(), place.fadeOutDuration());
 						minecraft.gui.setTitle(new TranslatableComponent(place.title()).withStyle(ChatFormatting.UNDERLINE));
-						if(!place.subtitle().isEmpty())
+						if (!place.subtitle().isEmpty())
 							minecraft.gui.setSubtitle(new TranslatableComponent(place.subtitle()));
 
-						if(place.soundLocation() != null) {
+						if (place.soundLocation() != null) {
 							SoundEvent sound = ForgeRegistries.SOUND_EVENTS.getValue(place.soundLocation());
-							if(sound != null) {
+							if (sound != null) {
 								player.level.playLocalSound(player.getX(), player.getY(), player.getZ(), sound, SoundSource.AMBIENT, 1.0F, 1.0F, false);
 							}
 						}

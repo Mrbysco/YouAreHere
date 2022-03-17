@@ -15,20 +15,20 @@ import org.apache.logging.log4j.Logger;
 
 @Mod(YouAreHere.MOD_ID)
 public class YouAreHere {
-    public static final String MOD_ID = "youarehere";
-    private static final Logger LOGGER = LogManager.getLogger();
+	public static final String MOD_ID = "youarehere";
+	private static final Logger LOGGER = LogManager.getLogger();
 
-    public YouAreHere() {
-        IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
-        ModLoadingContext.get().registerConfig(Type.COMMON, HereConfig.commonSpec);
+	public YouAreHere() {
+		IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
+		ModLoadingContext.get().registerConfig(Type.COMMON, HereConfig.commonSpec);
 
-        eventBus.addListener(this::setup);
+		eventBus.addListener(this::setup);
 
-        PlaceTypeRegistry.PLACE_TYPE.register(eventBus);
-        PlaceSounds.SOUND_EVENTS.register(eventBus);
-    }
+		PlaceTypeRegistry.PLACE_TYPE.register(eventBus);
+		PlaceSounds.SOUND_EVENTS.register(eventBus);
+	}
 
-    private void setup(final FMLCommonSetupEvent event) {
-        PacketHandler.init();
-    }
+	private void setup(final FMLCommonSetupEvent event) {
+		PacketHandler.init();
+	}
 }

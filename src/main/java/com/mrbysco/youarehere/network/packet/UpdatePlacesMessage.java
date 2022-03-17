@@ -40,8 +40,8 @@ public class UpdatePlacesMessage {
 	public static BasePlace fromNetwork(FriendlyByteBuf buffer) {
 		ResourceLocation resourcelocation = buffer.readResourceLocation();
 		ResourceLocation resourcelocation1 = buffer.readResourceLocation();
-		PlaceType<?> type = PlaceTypeRegistry.REGISTRY.getValue(resourcelocation);
-		if(type == null) {
+		PlaceType<?> type = PlaceTypeRegistry.REGISTRY.get().getValue(resourcelocation);
+		if (type == null) {
 			throw new IllegalArgumentException("Unknown place serializer " + resourcelocation);
 		} else {
 			return type.fromNetwork(resourcelocation1, buffer);

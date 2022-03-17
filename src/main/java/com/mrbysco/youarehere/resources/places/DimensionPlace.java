@@ -10,7 +10,7 @@ import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import java.util.Objects;
 
-public class DimensionPlace extends BasePlace{
+public class DimensionPlace extends BasePlace {
 	private final ResourceLocation dimensionLocation;
 
 	public DimensionPlace(ResourceLocation id, ResourceLocation soundLocation, String title, String subtitle, int duration,
@@ -70,7 +70,8 @@ public class DimensionPlace extends BasePlace{
 			String sound = GsonHelper.getAsString(jsonObject, "soundLocation", "");
 			ResourceLocation soundLocation = sound.isEmpty() ? null : ResourceLocation.tryParse(sound);
 
-			if (!jsonObject.has("dimension")) throw new com.google.gson.JsonSyntaxException("Missing dimension, expected to find a location string");
+			if (!jsonObject.has("dimension"))
+				throw new com.google.gson.JsonSyntaxException("Missing dimension, expected to find a location string");
 			ResourceLocation dimensionLocation = ResourceLocation.tryParse(GsonHelper.getAsString(jsonObject, "dimension", ""));
 
 			return new DimensionPlace(id, soundLocation, title, subtitle, duration, fadeInDuration, fadeOutDuration, dimensionLocation);

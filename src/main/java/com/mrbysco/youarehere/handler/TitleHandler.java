@@ -18,12 +18,12 @@ import net.minecraftforge.network.PacketDistributor;
 public class TitleHandler {
 	@SubscribeEvent
 	public static void onPlayerTick(PlayerTickEvent event) {
-		if(event.side.isServer()) {
-			ServerPlayer player = (ServerPlayer)event.player;
-			if(player.level.getGameTime() % 40 == 0 && !PlaceManager.INSTANCE.getPlaces().isEmpty()) {
+		if (event.side.isServer()) {
+			ServerPlayer player = (ServerPlayer) event.player;
+			if (player.level.getGameTime() % 40 == 0 && !PlaceManager.INSTANCE.getPlaces().isEmpty()) {
 				CompoundTag persistentData = player.getPersistentData();
 				CompoundTag hereData = persistentData.contains("YouAreHere") ? persistentData.getCompound("YouAreHere") : new CompoundTag();
-				for(BasePlace place : PlaceManager.INSTANCE.getPlaces()) {
+				for (BasePlace place : PlaceManager.INSTANCE.getPlaces()) {
 					checkPlace(player, place, hereData);
 				}
 				persistentData.put("YouAreHere", hereData);
@@ -36,11 +36,11 @@ public class TitleHandler {
 		boolean cachedValue = hereData.getBoolean(idName);
 		boolean matches = place.matches(player);
 		if (cachedValue) {
-			if(!matches) {
+			if (!matches) {
 				hereData.remove(idName);
 			}
 		} else {
-			if(matches) {
+			if (matches) {
 				hereData.putBoolean(idName, true);
 				PacketHandler.CHANNEL.send(PacketDistributor.PLAYER.with(() -> player), new ShowTitleMessage(place.id()));
 			}

@@ -10,7 +10,7 @@ public interface FinishedPlace {
 
 	default JsonObject serializePlace() {
 		JsonObject jsonobject = new JsonObject();
-		jsonobject.addProperty("type", PlaceTypeRegistry.REGISTRY.getKey(this.getType()).toString());
+		jsonobject.addProperty("type", PlaceTypeRegistry.REGISTRY.get().getKey(this.getType()).toString());
 		this.serializePlaceData(jsonobject);
 		return jsonobject;
 	}

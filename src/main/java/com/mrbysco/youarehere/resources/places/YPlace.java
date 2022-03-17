@@ -10,7 +10,7 @@ import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import java.util.Objects;
 
-public class YPlace extends BasePlace{
+public class YPlace extends BasePlace {
 	private final int minY;
 	private final int maxY;
 
@@ -78,9 +78,11 @@ public class YPlace extends BasePlace{
 			String sound = GsonHelper.getAsString(jsonObject, "soundLocation", "");
 			ResourceLocation soundLocation = sound.isEmpty() ? null : ResourceLocation.tryParse(sound);
 
-			if (!jsonObject.has("minY")) throw new com.google.gson.JsonSyntaxException("Missing minY, expected to find a minY integer");
+			if (!jsonObject.has("minY"))
+				throw new com.google.gson.JsonSyntaxException("Missing minY, expected to find a minY integer");
 			int minY = GsonHelper.getAsInt(jsonObject, "minY");
-			if (!jsonObject.has("maxY")) throw new com.google.gson.JsonSyntaxException("Missing maxY, expected to find a maxY integer");
+			if (!jsonObject.has("maxY"))
+				throw new com.google.gson.JsonSyntaxException("Missing maxY, expected to find a maxY integer");
 			int maxY = GsonHelper.getAsInt(jsonObject, "maxY");
 
 			return new YPlace(id, soundLocation, title, subtitle, duration, fadeInDuration, fadeOutDuration, minY, maxY);

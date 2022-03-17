@@ -17,25 +17,25 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.IForgeRegistry;
+import net.minecraftforge.registries.NewRegistryEvent;
 import net.minecraftforge.registries.RegistryBuilder;
 import net.minecraftforge.registries.RegistryObject;
 
+import java.util.function.Supplier;
+
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, modid = YouAreHere.MOD_ID)
 public class PlaceTypeRegistry {
-	public static IForgeRegistry<PlaceType<?>> REGISTRY;
+	public static Supplier<IForgeRegistry<PlaceType<?>>> REGISTRY;
 
 	@SubscribeEvent
-	public static void onNewRegistry(RegistryEvent.NewRegistry event) {
-		REGISTRY = new RegistryBuilder<PlaceType<?>>()
+	public static void onNewRegistry(NewRegistryEvent event) {
+		REGISTRY = event.create(new RegistryBuilder<PlaceType<?>>()
 				.setName(new ResourceLocation(YouAreHere.MOD_ID, "place_types"))
-				.setType(c(PlaceType.class))
-				.create();
+				.setType(c(PlaceType.class)));
 	}
 
 	@SubscribeEvent
 	public static void registerPlaceType(final RegistryEvent.Register<PlaceType<?>> event) {
-		IForgeRegistry<PlaceType<?>> registry = event.getRegistry();
-
 		CraftingHelper.register(EnableBiomePlacesCondition.Serializer.INSTANCE);
 		CraftingHelper.register(EnableDimensionPlacesCondition.Serializer.INSTANCE);
 		CraftingHelper.register(EnableYPlacesCondition.Serializer.INSTANCE);
@@ -43,9 +43,11 @@ public class PlaceTypeRegistry {
 		event.getRegistry().register(new ConditionalPlace.Serializer<BasePlace>().setRegistryName(new ResourceLocation(YouAreHere.MOD_ID, "conditional")));
 	}
 
-	private static <T> Class<T> c(Class<?> cls) { return (Class<T>)cls; }
+	private static <T> Class<T> c(Class<?> cls) {
+		return (Class<T>) cls;
+	}
 
-	public static final DeferredRegister<PlaceType<?>> PLACE_TYPE = DeferredRegister.create((Class)PlaceType.class, YouAreHere.MOD_ID);
+	public static final DeferredRegister<PlaceType<?>> PLACE_TYPE = DeferredRegister.create(new ResourceLocation(YouAreHere.MOD_ID, "place_types"), YouAreHere.MOD_ID);
 
 	public static final RegistryObject<PlaceType<?>> DIMENSION_TYPE = PLACE_TYPE.register("dimension", () -> new DimensionPlace.Serializer());
 	public static final RegistryObject<PlaceType<?>> BIOME_TYPE = PLACE_TYPE.register("biome", () -> new BiomePlace.Serializer());
