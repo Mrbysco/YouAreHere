@@ -9,9 +9,9 @@
       ],
       "place": {
         "type": "youarehere:biome",
+        "biome": "minecraft:frozen_river",
         "soundLocation": "minecraft:ui.toast.in",
-        "title": "biome.minecraft.frozen_river",
-        "biome": "minecraft:frozen_river"
+        "title": "biome.minecraft.frozen_river"
       }
     }
   ]

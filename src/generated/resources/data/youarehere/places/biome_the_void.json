@@ -9,9 +9,9 @@
       ],
       "place": {
         "type": "youarehere:biome",
+        "biome": "minecraft:the_void",
         "soundLocation": "minecraft:ui.toast.in",
-        "title": "biome.minecraft.the_void",
-        "biome": "minecraft:the_void"
+        "title": "biome.minecraft.the_void"
       }
     }
   ]

@@ -9,9 +9,9 @@
       ],
       "place": {
         "type": "youarehere:biome",
+        "biome": "minecraft:eroded_badlands",
         "soundLocation": "minecraft:ui.toast.in",
-        "title": "biome.minecraft.eroded_badlands",
-        "biome": "minecraft:eroded_badlands"
+        "title": "biome.minecraft.eroded_badlands"
       }
     }
   ]

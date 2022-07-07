@@ -9,9 +9,9 @@
       ],
       "place": {
         "type": "youarehere:biome",
+        "biome": "minecraft:the_end",
         "soundLocation": "minecraft:ui.toast.in",
-        "title": "biome.minecraft.the_end",
-        "biome": "minecraft:the_end"
+        "title": "biome.minecraft.the_end"
       }
     }
   ]

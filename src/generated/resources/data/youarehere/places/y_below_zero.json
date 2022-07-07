@@ -9,10 +9,10 @@
       ],
       "place": {
         "type": "youarehere:y_level",
-        "soundLocation": "minecraft:block.lava.pop",
-        "title": "Below Zero",
+        "maxY": 0,
         "minY": -64,
-        "maxY": 0
+        "soundLocation": "minecraft:block.lava.pop",
+        "title": "Below Zero"
       }
     }
   ]

@@ -9,9 +9,9 @@
       ],
       "place": {
         "type": "youarehere:biome",
+        "biome": "minecraft:small_end_islands",
         "soundLocation": "minecraft:ui.toast.in",
-        "title": "biome.minecraft.small_end_islands",
-        "biome": "minecraft:small_end_islands"
+        "title": "biome.minecraft.small_end_islands"
       }
     }
   ]

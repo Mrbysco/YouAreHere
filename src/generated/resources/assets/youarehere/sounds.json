@@ -4,6 +4,11 @@
       "youarehere:empty"
     ]
   },
+  "sound.10": {
+    "sounds": [
+      "youarehere:empty"
+    ]
+  },
   "sound.2": {
     "sounds": [
       "youarehere:empty"
@@ -40,11 +45,6 @@
     ]
   },
   "sound.9": {
-    "sounds": [
-      "youarehere:empty"
-    ]
-  },
-  "sound.10": {
     "sounds": [
       "youarehere:empty"
     ]

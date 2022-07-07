@@ -9,9 +9,9 @@
       ],
       "place": {
         "type": "youarehere:biome",
+        "biome": "minecraft:windswept_forest",
         "soundLocation": "minecraft:ui.toast.in",
-        "title": "biome.minecraft.windswept_forest",
-        "biome": "minecraft:windswept_forest"
+        "title": "biome.minecraft.windswept_forest"
       }
     }
   ]

@@ -9,9 +9,9 @@
       ],
       "place": {
         "type": "youarehere:biome",
+        "biome": "minecraft:jagged_peaks",
         "soundLocation": "minecraft:ui.toast.in",
-        "title": "biome.minecraft.jagged_peaks",
-        "biome": "minecraft:jagged_peaks"
+        "title": "biome.minecraft.jagged_peaks"
       }
     }
   ]

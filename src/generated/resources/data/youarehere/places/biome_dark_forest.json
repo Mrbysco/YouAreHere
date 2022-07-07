@@ -9,9 +9,9 @@
       ],
       "place": {
         "type": "youarehere:biome",
+        "biome": "minecraft:dark_forest",
         "soundLocation": "minecraft:ui.toast.in",
-        "title": "biome.minecraft.dark_forest",
-        "biome": "minecraft:dark_forest"
+        "title": "biome.minecraft.dark_forest"
       }
     }
   ]

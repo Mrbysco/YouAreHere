@@ -13,6 +13,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.common.crafting.conditions.ICondition;
+import net.minecraftforge.common.crafting.conditions.ICondition.IContext;
 import net.minecraftforge.registries.ObjectHolder;
 
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ import java.util.function.Consumer;
  * Borrowed from net.minecraftforge.common.crafting.ConditionalRecipe
  */
 public class ConditionalPlace {
-	@ObjectHolder("youarehere:conditional")
+	@ObjectHolder(registryName = "youarehere:place_types", value = "youarehere:conditional")
 	public static final PlaceType<BasePlace> PLACE_TYPE = null;
 
 	public static ConditionalPlace.Builder builder() {
@@ -31,28 +32,6 @@ public class ConditionalPlace {
 	}
 
 	public static class Serializer<T extends BasePlace> implements PlaceType<T> {
-		private ResourceLocation name;
-
-		@Override
-		public PlaceType<?> setRegistryName(ResourceLocation name) {
-			this.name = name;
-			return this;
-		}
-
-		@Override
-		public ResourceLocation getRegistryName() {
-			return name;
-		}
-
-		@Override
-		public Class<PlaceType<?>> getRegistryType() {
-			return ConditionalPlace.Serializer.<PlaceType<?>>castClass(PlaceType.class);
-		}
-
-		@SuppressWarnings("unchecked") // Need this wrapper, because generics
-		private static <G> Class<G> castClass(Class<?> cls) {
-			return (Class<G>) cls;
-		}
 
 		@SuppressWarnings("unchecked") // We return a nested one, so we can't know what type it is.
 		@Override
@@ -62,7 +41,7 @@ public class ConditionalPlace {
 			for (JsonElement ele : items) {
 				if (!ele.isJsonObject())
 					throw new JsonSyntaxException("Invalid places entry at index " + idx + " Must be JsonObject");
-				if (CraftingHelper.processConditions(GsonHelper.getAsJsonArray(ele.getAsJsonObject(), "conditions")))
+				if (CraftingHelper.processConditions(GsonHelper.getAsJsonArray(ele.getAsJsonObject(), "conditions"), IContext.EMPTY))
 					return (T) PlaceManager.fromJson(placeId, GsonHelper.getAsJsonObject(ele.getAsJsonObject(), "place"));
 				idx++;
 			}

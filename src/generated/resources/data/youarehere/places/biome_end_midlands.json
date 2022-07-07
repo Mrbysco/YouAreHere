@@ -9,9 +9,9 @@
       ],
       "place": {
         "type": "youarehere:biome",
+        "biome": "minecraft:end_midlands",
         "soundLocation": "minecraft:ui.toast.in",
-        "title": "biome.minecraft.end_midlands",
-        "biome": "minecraft:end_midlands"
+        "title": "biome.minecraft.end_midlands"
       }
     }
   ]

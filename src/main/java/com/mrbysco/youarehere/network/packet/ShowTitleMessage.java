@@ -3,7 +3,7 @@ package com.mrbysco.youarehere.network.packet;
 import com.mrbysco.youarehere.resources.PlaceManager;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
@@ -54,9 +54,9 @@ public class ShowTitleMessage {
 						minecraft.gui.clear();
 						minecraft.gui.resetTitleTimes();
 						minecraft.gui.setTimes(place.fadeInDuration(), place.duration(), place.fadeOutDuration());
-						minecraft.gui.setTitle(new TranslatableComponent(place.title()).withStyle(ChatFormatting.UNDERLINE));
+						minecraft.gui.setTitle(Component.translatable(place.title()).withStyle(ChatFormatting.UNDERLINE));
 						if (!place.subtitle().isEmpty())
-							minecraft.gui.setSubtitle(new TranslatableComponent(place.subtitle()));
+							minecraft.gui.setSubtitle(Component.translatable(place.subtitle()));
 
 						if (place.soundLocation() != null) {
 							SoundEvent sound = ForgeRegistries.SOUND_EVENTS.getValue(place.soundLocation());

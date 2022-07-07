@@ -9,9 +9,9 @@
       ],
       "place": {
         "type": "youarehere:biome",
+        "biome": "minecraft:soul_sand_valley",
         "soundLocation": "minecraft:ui.toast.in",
-        "title": "biome.minecraft.soul_sand_valley",
-        "biome": "minecraft:soul_sand_valley"
+        "title": "biome.minecraft.soul_sand_valley"
       }
     }
   ]

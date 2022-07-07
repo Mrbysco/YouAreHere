@@ -9,9 +9,9 @@
       ],
       "place": {
         "type": "youarehere:biome",
+        "biome": "minecraft:swamp",
         "soundLocation": "minecraft:ui.toast.in",
-        "title": "biome.minecraft.swamp",
-        "biome": "minecraft:swamp"
+        "title": "biome.minecraft.swamp"
       }
     }
   ]

@@ -9,9 +9,9 @@
       ],
       "place": {
         "type": "youarehere:biome",
+        "biome": "minecraft:nether_wastes",
         "soundLocation": "minecraft:ui.toast.in",
-        "title": "biome.minecraft.nether_wastes",
-        "biome": "minecraft:nether_wastes"
+        "title": "biome.minecraft.nether_wastes"
       }
     }
   ]

@@ -9,9 +9,9 @@
       ],
       "place": {
         "type": "youarehere:biome",
+        "biome": "minecraft:sparse_jungle",
         "soundLocation": "minecraft:ui.toast.in",
-        "title": "biome.minecraft.sparse_jungle",
-        "biome": "minecraft:sparse_jungle"
+        "title": "biome.minecraft.sparse_jungle"
       }
     }
   ]

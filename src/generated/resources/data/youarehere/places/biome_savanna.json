@@ -9,9 +9,9 @@
       ],
       "place": {
         "type": "youarehere:biome",
+        "biome": "minecraft:savanna",
         "soundLocation": "minecraft:ui.toast.in",
-        "title": "biome.minecraft.savanna",
-        "biome": "minecraft:savanna"
+        "title": "biome.minecraft.savanna"
       }
     }
   ]

@@ -3,23 +3,19 @@ package com.mrbysco.youarehere.datagen.provider;
 import com.google.common.collect.Sets;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.mrbysco.youarehere.datagen.provider.builder.BiomePlaceBuilder;
 import com.mrbysco.youarehere.datagen.provider.builder.YPlaceBuilder;
 import com.mrbysco.youarehere.resources.PlaceManager;
+import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
-import net.minecraft.data.HashCache;
 import net.minecraft.resources.ResourceLocation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.BufferedWriter;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Objects;
 import java.util.Set;
 import java.util.function.Consumer;
 
@@ -36,7 +32,7 @@ public class PlaceProvider implements DataProvider {
 	}
 
 	@Override
-	public void run(HashCache cache) throws IOException {
+	public void run(CachedOutput cache) throws IOException {
 		Path outputFolder = this.generator.getOutputFolder();
 		Set<ResourceLocation> set = Sets.newHashSet();
 		this.createPlaces((finishedPlace) -> {
@@ -61,34 +57,9 @@ public class PlaceProvider implements DataProvider {
 		builder.save(consumer, new ResourceLocation(modID, name));
 	}
 
-	private static void savePlaces(HashCache cache, JsonObject jsonObject, Path path) {
+	private static void savePlaces(CachedOutput cache, JsonObject jsonObject, Path path) {
 		try {
-			String s = GSON.toJson((JsonElement) jsonObject);
-			String s1 = SHA1.hashUnencodedChars(s).toString();
-			if (!Objects.equals(cache.getHash(path), s1) || !Files.exists(path)) {
-				Files.createDirectories(path.getParent());
-				BufferedWriter bufferedwriter = Files.newBufferedWriter(path);
-
-				try {
-					bufferedwriter.write(s);
-				} catch (Throwable throwable1) {
-					if (bufferedwriter != null) {
-						try {
-							bufferedwriter.close();
-						} catch (Throwable throwable) {
-							throwable1.addSuppressed(throwable);
-						}
-					}
-
-					throw throwable1;
-				}
-
-				if (bufferedwriter != null) {
-					bufferedwriter.close();
-				}
-			}
-
-			cache.putNew(path, s1);
+			DataProvider.saveStable(cache, jsonObject, path);
 		} catch (IOException ioexception) {
 			LOGGER.error("Couldn't save Place Info {}", path, ioexception);
 		}

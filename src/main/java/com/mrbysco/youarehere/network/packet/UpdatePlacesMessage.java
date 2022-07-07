@@ -27,7 +27,7 @@ public class UpdatePlacesMessage {
 	}
 
 	public static <T extends BasePlace> void toNetwork(FriendlyByteBuf buffer, T value) {
-		buffer.writeResourceLocation(value.getType().getRegistryName());
+		buffer.writeResourceLocation(PlaceTypeRegistry.REGISTRY.get().getKey(value.getType()));
 		buffer.writeResourceLocation(value.id());
 		value.getType().toNetwork(buffer, value);
 	}

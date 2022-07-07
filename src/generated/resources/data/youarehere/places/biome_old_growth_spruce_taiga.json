@@ -9,9 +9,9 @@
       ],
       "place": {
         "type": "youarehere:biome",
+        "biome": "minecraft:old_growth_spruce_taiga",
         "soundLocation": "minecraft:ui.toast.in",
-        "title": "biome.minecraft.old_growth_spruce_taiga",
-        "biome": "minecraft:old_growth_spruce_taiga"
+        "title": "biome.minecraft.old_growth_spruce_taiga"
       }
     }
   ]

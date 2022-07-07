@@ -9,9 +9,9 @@
       ],
       "place": {
         "type": "youarehere:biome",
+        "biome": "minecraft:ice_spikes",
         "soundLocation": "minecraft:ui.toast.in",
-        "title": "biome.minecraft.ice_spikes",
-        "biome": "minecraft:ice_spikes"
+        "title": "biome.minecraft.ice_spikes"
       }
     }
   ]

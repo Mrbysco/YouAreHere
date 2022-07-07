@@ -9,9 +9,9 @@
       ],
       "place": {
         "type": "youarehere:biome",
+        "biome": "minecraft:bamboo_jungle",
         "soundLocation": "minecraft:ui.toast.in",
-        "title": "biome.minecraft.bamboo_jungle",
-        "biome": "minecraft:bamboo_jungle"
+        "title": "biome.minecraft.bamboo_jungle"
       }
     }
   ]

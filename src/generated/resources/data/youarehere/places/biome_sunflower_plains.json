@@ -9,9 +9,9 @@
       ],
       "place": {
         "type": "youarehere:biome",
+        "biome": "minecraft:sunflower_plains",
         "soundLocation": "minecraft:ui.toast.in",
-        "title": "biome.minecraft.sunflower_plains",
-        "biome": "minecraft:sunflower_plains"
+        "title": "biome.minecraft.sunflower_plains"
       }
     }
   ]

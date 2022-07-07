@@ -9,9 +9,9 @@
       ],
       "place": {
         "type": "youarehere:biome",
+        "biome": "minecraft:stony_shore",
         "soundLocation": "minecraft:ui.toast.in",
-        "title": "biome.minecraft.stony_shore",
-        "biome": "minecraft:stony_shore"
+        "title": "biome.minecraft.stony_shore"
       }
     }
   ]

@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[40,)"
+loaderVersion="[41,)"
 issueTrackerURL="https://github.com/Mrbysco/YouAreHere/issues"
 license="MIT"
 
@@ -14,14 +14,8 @@ Tells you where you are.
 '''
 credits="Darkosto for the idea"
 [[dependencies.youarehere]]
-modId="forge"
-mandatory=true
-versionRange="[40.0.18,)"
-ordering="NONE"
-side="BOTH"
-[[dependencies.youarehere]]
 modId="minecraft"
 mandatory=true
-versionRange="[1.18.2,)"
+versionRange="[1.19,)"
 ordering="NONE"
 side="BOTH"

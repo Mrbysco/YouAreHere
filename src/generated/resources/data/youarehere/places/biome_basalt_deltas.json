@@ -9,9 +9,9 @@
       ],
       "place": {
         "type": "youarehere:biome",
+        "biome": "minecraft:basalt_deltas",
         "soundLocation": "minecraft:ui.toast.in",
-        "title": "biome.minecraft.basalt_deltas",
-        "biome": "minecraft:basalt_deltas"
+        "title": "biome.minecraft.basalt_deltas"
       }
     }
   ]

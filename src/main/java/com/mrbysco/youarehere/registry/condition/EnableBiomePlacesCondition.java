@@ -16,7 +16,7 @@ public class EnableBiomePlacesCondition implements ICondition {
 	}
 
 	@Override
-	public boolean test() {
+	public boolean test(IContext context) {
 		return HereConfig.COMMON.enableBiomePlaces.get();
 	}
 

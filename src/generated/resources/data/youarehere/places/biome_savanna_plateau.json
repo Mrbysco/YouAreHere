@@ -9,9 +9,9 @@
       ],
       "place": {
         "type": "youarehere:biome",
+        "biome": "minecraft:savanna_plateau",
         "soundLocation": "minecraft:ui.toast.in",
-        "title": "biome.minecraft.savanna_plateau",
-        "biome": "minecraft:savanna_plateau"
+        "title": "biome.minecraft.savanna_plateau"
       }
     }
   ]

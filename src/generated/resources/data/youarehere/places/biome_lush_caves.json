@@ -9,9 +9,9 @@
       ],
       "place": {
         "type": "youarehere:biome",
+        "biome": "minecraft:lush_caves",
         "soundLocation": "minecraft:ui.toast.in",
-        "title": "biome.minecraft.lush_caves",
-        "biome": "minecraft:lush_caves"
+        "title": "biome.minecraft.lush_caves"
       }
     }
   ]

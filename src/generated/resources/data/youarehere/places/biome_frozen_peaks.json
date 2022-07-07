@@ -9,9 +9,9 @@
       ],
       "place": {
         "type": "youarehere:biome",
+        "biome": "minecraft:frozen_peaks",
         "soundLocation": "minecraft:ui.toast.in",
-        "title": "biome.minecraft.frozen_peaks",
-        "biome": "minecraft:frozen_peaks"
+        "title": "biome.minecraft.frozen_peaks"
       }
     }
   ]

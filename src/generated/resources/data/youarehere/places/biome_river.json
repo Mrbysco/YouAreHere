@@ -9,9 +9,9 @@
       ],
       "place": {
         "type": "youarehere:biome",
+        "biome": "minecraft:river",
         "soundLocation": "minecraft:ui.toast.in",
-        "title": "biome.minecraft.river",
-        "biome": "minecraft:river"
+        "title": "biome.minecraft.river"
       }
     }
   ]

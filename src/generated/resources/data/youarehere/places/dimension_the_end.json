@@ -9,9 +9,9 @@
       ],
       "place": {
         "type": "youarehere:dimension",
+        "dimension": "minecraft:the_end",
         "soundLocation": "minecraft:ui.toast.challenge_complete",
-        "title": "youarehere.dimension.the_end",
-        "dimension": "minecraft:the_end"
+        "title": "youarehere.dimension.the_end"
       }
     }
   ]

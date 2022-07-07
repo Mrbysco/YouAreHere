@@ -7,7 +7,8 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.registries.ForgeRegistryEntry;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.Objects;
 
@@ -44,7 +45,8 @@ public class BiomePlace extends BasePlace {
 	@Override
 	public boolean matches(Player player) {
 		BlockPos pos = player.blockPosition();
-		return player.level.getBiome(pos).value().getRegistryName().equals(this.biomeLocation());
+		ResourceLocation biomeLocation = player.level.getBiome(pos).unwrapKey().get().location();
+		return biomeLocation != null && biomeLocation.equals(this.biomeLocation());
 	}
 
 	@Override
@@ -61,7 +63,7 @@ public class BiomePlace extends BasePlace {
 		return PlaceTypeRegistry.BIOME_TYPE.get();
 	}
 
-	public static class Serializer extends ForgeRegistryEntry<PlaceType<?>> implements PlaceType<BiomePlace> {
+	public static class Serializer implements PlaceType<BiomePlace> {
 		public BiomePlace fromJson(ResourceLocation id, JsonObject jsonObject) {
 			String title = GsonHelper.getAsString(jsonObject, "title", "");
 			String subtitle = GsonHelper.getAsString(jsonObject, "subtitle", "");

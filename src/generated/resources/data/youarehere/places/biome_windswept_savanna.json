@@ -9,9 +9,9 @@
       ],
       "place": {
         "type": "youarehere:biome",
+        "biome": "minecraft:windswept_savanna",
         "soundLocation": "minecraft:ui.toast.in",
-        "title": "biome.minecraft.windswept_savanna",
-        "biome": "minecraft:windswept_savanna"
+        "title": "biome.minecraft.windswept_savanna"
       }
     }
   ]

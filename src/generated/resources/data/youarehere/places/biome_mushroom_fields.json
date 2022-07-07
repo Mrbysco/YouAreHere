@@ -9,9 +9,9 @@
       ],
       "place": {
         "type": "youarehere:biome",
+        "biome": "minecraft:mushroom_fields",
         "soundLocation": "minecraft:ui.toast.in",
-        "title": "biome.minecraft.mushroom_fields",
-        "biome": "minecraft:mushroom_fields"
+        "title": "biome.minecraft.mushroom_fields"
       }
     }
   ]

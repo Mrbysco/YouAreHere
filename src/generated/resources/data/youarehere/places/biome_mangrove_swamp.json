@@ -9,9 +9,9 @@
       ],
       "place": {
         "type": "youarehere:biome",
-        "biome": "minecraft:dripstone_caves",
+        "biome": "minecraft:mangrove_swamp",
         "soundLocation": "minecraft:ui.toast.in",
-        "title": "biome.minecraft.dripstone_caves"
+        "title": "biome.minecraft.mangrove_swamp"
       }
     }
   ]

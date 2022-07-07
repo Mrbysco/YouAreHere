@@ -9,9 +9,9 @@
       ],
       "place": {
         "type": "youarehere:biome",
+        "biome": "minecraft:end_barrens",
         "soundLocation": "minecraft:ui.toast.in",
-        "title": "biome.minecraft.end_barrens",
-        "biome": "minecraft:end_barrens"
+        "title": "biome.minecraft.end_barrens"
       }
     }
   ]

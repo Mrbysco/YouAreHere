@@ -16,7 +16,7 @@ public class EnableDimensionPlacesCondition implements ICondition {
 	}
 
 	@Override
-	public boolean test() {
+	public boolean test(IContext context) {
 		return HereConfig.COMMON.enableDimensionPlaces.get();
 	}
 

@@ -9,9 +9,9 @@
       ],
       "place": {
         "type": "youarehere:biome",
+        "biome": "minecraft:snowy_slopes",
         "soundLocation": "minecraft:ui.toast.in",
-        "title": "biome.minecraft.snowy_slopes",
-        "biome": "minecraft:snowy_slopes"
+        "title": "biome.minecraft.snowy_slopes"
       }
     }
   ]

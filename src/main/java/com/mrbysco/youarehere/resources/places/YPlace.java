@@ -6,7 +6,6 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import java.util.Objects;
 
@@ -67,7 +66,7 @@ public class YPlace extends BasePlace {
 		return PlaceTypeRegistry.Y_LEVEL_TYPE.get();
 	}
 
-	public static class Serializer extends ForgeRegistryEntry<PlaceType<?>> implements PlaceType<YPlace> {
+	public static class Serializer implements PlaceType<YPlace> {
 		public YPlace fromJson(ResourceLocation id, JsonObject jsonObject) {
 			String title = GsonHelper.getAsString(jsonObject, "title", "");
 			String subtitle = GsonHelper.getAsString(jsonObject, "subtitle", "");

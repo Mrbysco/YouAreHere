@@ -9,9 +9,9 @@
       ],
       "place": {
         "type": "youarehere:biome",
+        "biome": "minecraft:wooded_badlands",
         "soundLocation": "minecraft:ui.toast.in",
-        "title": "biome.minecraft.wooded_badlands",
-        "biome": "minecraft:wooded_badlands"
+        "title": "biome.minecraft.wooded_badlands"
       }
     }
   ]

@@ -32,8 +32,8 @@ public class PlaceDatagen {
 		DataGenerator generator = event.getGenerator();
 		ExistingFileHelper helper = event.getExistingFileHelper();
 		if (event.includeClient()) {
-			generator.addProvider(new Places(generator));
-			generator.addProvider(new PlaceSoundProvider(generator, helper));
+			generator.addProvider(event.includeClient(), new Places(generator));
+			generator.addProvider(event.includeClient(), new PlaceSoundProvider(generator, helper));
 		}
 	}
 
@@ -45,7 +45,7 @@ public class PlaceDatagen {
 		@Override
 		public void createPlaces(Consumer<FinishedPlace> consumer) {
 			for (Biome biome : ForgeRegistries.BIOMES.getValues()) {
-				ResourceLocation biomeLocation = biome.getRegistryName();
+				ResourceLocation biomeLocation = ForgeRegistries.BIOMES.getKey(biome);
 				ResourceLocation id = new ResourceLocation(YouAreHere.MOD_ID, "biome_" + biomeLocation.getPath());
 				new ConditionalPlace.Builder()
 						.addCondition(

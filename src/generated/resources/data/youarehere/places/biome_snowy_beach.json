@@ -9,9 +9,9 @@
       ],
       "place": {
         "type": "youarehere:biome",
+        "biome": "minecraft:snowy_beach",
         "soundLocation": "minecraft:ui.toast.in",
-        "title": "biome.minecraft.snowy_beach",
-        "biome": "minecraft:snowy_beach"
+        "title": "biome.minecraft.snowy_beach"
       }
     }
   ]

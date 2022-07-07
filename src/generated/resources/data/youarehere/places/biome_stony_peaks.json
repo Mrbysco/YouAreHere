@@ -9,9 +9,9 @@
       ],
       "place": {
         "type": "youarehere:biome",
+        "biome": "minecraft:stony_peaks",
         "soundLocation": "minecraft:ui.toast.in",
-        "title": "biome.minecraft.stony_peaks",
-        "biome": "minecraft:stony_peaks"
+        "title": "biome.minecraft.stony_peaks"
       }
     }
   ]

@@ -9,9 +9,9 @@
       ],
       "place": {
         "type": "youarehere:biome",
+        "biome": "minecraft:birch_forest",
         "soundLocation": "minecraft:ui.toast.in",
-        "title": "biome.minecraft.birch_forest",
-        "biome": "minecraft:birch_forest"
+        "title": "biome.minecraft.birch_forest"
       }
     }
   ]

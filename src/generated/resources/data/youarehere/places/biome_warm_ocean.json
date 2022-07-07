@@ -9,9 +9,9 @@
       ],
       "place": {
         "type": "youarehere:biome",
+        "biome": "minecraft:warm_ocean",
         "soundLocation": "minecraft:ui.toast.in",
-        "title": "biome.minecraft.warm_ocean",
-        "biome": "minecraft:warm_ocean"
+        "title": "biome.minecraft.warm_ocean"
       }
     }
   ]

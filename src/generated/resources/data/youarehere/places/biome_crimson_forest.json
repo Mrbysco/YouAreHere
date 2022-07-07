@@ -9,9 +9,9 @@
       ],
       "place": {
         "type": "youarehere:biome",
+        "biome": "minecraft:crimson_forest",
         "soundLocation": "minecraft:ui.toast.in",
-        "title": "biome.minecraft.crimson_forest",
-        "biome": "minecraft:crimson_forest"
+        "title": "biome.minecraft.crimson_forest"
       }
     }
   ]

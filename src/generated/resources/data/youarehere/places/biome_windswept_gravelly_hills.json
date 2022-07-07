@@ -9,9 +9,9 @@
       ],
       "place": {
         "type": "youarehere:biome",
+        "biome": "minecraft:windswept_gravelly_hills",
         "soundLocation": "minecraft:ui.toast.in",
-        "title": "biome.minecraft.windswept_gravelly_hills",
-        "biome": "minecraft:windswept_gravelly_hills"
+        "title": "biome.minecraft.windswept_gravelly_hills"
       }
     }
   ]

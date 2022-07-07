@@ -9,9 +9,9 @@
       ],
       "place": {
         "type": "youarehere:biome",
+        "biome": "minecraft:snowy_plains",
         "soundLocation": "minecraft:ui.toast.in",
-        "title": "biome.minecraft.snowy_plains",
-        "biome": "minecraft:snowy_plains"
+        "title": "biome.minecraft.snowy_plains"
       }
     }
   ]

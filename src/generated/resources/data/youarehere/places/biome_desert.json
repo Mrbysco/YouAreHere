@@ -9,9 +9,9 @@
       ],
       "place": {
         "type": "youarehere:biome",
+        "biome": "minecraft:desert",
         "soundLocation": "minecraft:ui.toast.in",
-        "title": "biome.minecraft.desert",
-        "biome": "minecraft:desert"
+        "title": "biome.minecraft.desert"
       }
     }
   ]

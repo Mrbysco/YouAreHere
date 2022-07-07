@@ -9,9 +9,9 @@
       ],
       "place": {
         "type": "youarehere:biome",
+        "biome": "minecraft:snowy_taiga",
         "soundLocation": "minecraft:ui.toast.in",
-        "title": "biome.minecraft.snowy_taiga",
-        "biome": "minecraft:snowy_taiga"
+        "title": "biome.minecraft.snowy_taiga"
       }
     }
   ]
