@@ -9,11 +9,11 @@
       ],
       "place": {
         "type": "youarehere:y_level",
-        "soundLocation": "minecraft:block.lava.pop",
-        "title": "On the ceiling",
-        "minY": 127,
+        "dimension": "minecraft:the_nether",
         "maxY": 256,
-        "dimension": "minecraft:the_nether"
+        "minY": 127,
+        "soundLocation": "minecraft:block.lava.pop",
+        "title": "On the ceiling"
       }
     }
   ]
