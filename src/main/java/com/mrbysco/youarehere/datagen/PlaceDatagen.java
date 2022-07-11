@@ -103,6 +103,7 @@ public class PlaceDatagen {
 					.addPlace(
 							YPlaceBuilder.y(127, 256)
 									.setTitle("On the ceiling")
+									.setSubtitle("Of The Nether")
 									.setSoundLocation(SoundEvents.LAVA_POP.getLocation())
 									.setDimensionLocation(new ResourceLocation("the_nether"))
 									::save

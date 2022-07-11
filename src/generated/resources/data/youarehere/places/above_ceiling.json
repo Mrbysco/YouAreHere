@@ -11,6 +11,7 @@
         "type": "youarehere:y_level",
         "soundLocation": "minecraft:block.lava.pop",
         "title": "On the ceiling",
+        "subtitle": "Of The Nether",
         "minY": 127,
         "maxY": 256,
         "dimension": "minecraft:the_nether"
