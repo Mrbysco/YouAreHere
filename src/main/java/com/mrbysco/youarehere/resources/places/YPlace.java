@@ -123,11 +123,11 @@ public class YPlace extends BasePlace {
 			friendlyByteBuf.writeVarInt(biomePlace.duration);
 			friendlyByteBuf.writeVarInt(biomePlace.fadeInDuration);
 			friendlyByteBuf.writeVarInt(biomePlace.fadeOutDuration);
-			friendlyByteBuf.writeUtf(biomePlace.dimensionLocation == null ? "" : biomePlace.dimensionLocation.toString());
 
 			friendlyByteBuf.writeUtf(biomePlace.soundLocation == null ? "" : biomePlace.soundLocation.toString());
 			friendlyByteBuf.writeVarInt(biomePlace.minY);
 			friendlyByteBuf.writeVarInt(biomePlace.maxY);
+			friendlyByteBuf.writeUtf(biomePlace.dimensionLocation == null ? "" : biomePlace.dimensionLocation.toString());
 		}
 	}
 }
