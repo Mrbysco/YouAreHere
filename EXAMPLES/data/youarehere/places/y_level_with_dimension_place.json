@@ -1,0 +1,8 @@
+{
+  "type": "youarehere:y_level",
+  "dimension": "minecraft:the_nether",
+  "maxY": 256,
+  "minY": 127,
+  "soundLocation": "minecraft:block.lava.pop",
+  "title": "On the ceiling"
+}

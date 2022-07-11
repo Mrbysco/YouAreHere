@@ -1,7 +1,7 @@
 {
-	"type": "youarehere:y_level",
-	"soundLocation": "minecraft:block.lava.pop",
-	"title": "Below Zero",
-	"minY": -64,
-	"maxY": 0
+  "type": "youarehere:y_level",
+  "maxY": 0,
+  "minY": -64,
+  "soundLocation": "minecraft:block.lava.pop",
+  "title": "Below Zero"
 }
