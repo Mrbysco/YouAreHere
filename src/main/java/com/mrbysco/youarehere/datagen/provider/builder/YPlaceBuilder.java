@@ -7,6 +7,7 @@ import com.mrbysco.youarehere.registry.PlaceTypeRegistry;
 import com.mrbysco.youarehere.resources.places.PlaceType;
 import com.mrbysco.youarehere.resources.places.YPlace;
 import net.minecraft.resources.ResourceLocation;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Consumer;
 
@@ -19,6 +20,8 @@ public class YPlaceBuilder implements PlaceBuilder {
 	private int fadeOutDuration;
 	private int minY;
 	private int maxY;
+	@Nullable
+	private ResourceLocation dimensionLocation;
 
 	public YPlaceBuilder(int minY, int maxY) {
 		this.minY = minY;
@@ -69,8 +72,13 @@ public class YPlaceBuilder implements PlaceBuilder {
 		return this;
 	}
 
+	public YPlaceBuilder setDimensionLocation(ResourceLocation dimensionLocation) {
+		this.dimensionLocation = dimensionLocation;
+		return this;
+	}
+
 	public YPlace build(ResourceLocation id) {
-		return new YPlace(id, soundLocation, title, subtitle, duration, fadeInDuration, fadeOutDuration, minY, maxY);
+		return new YPlace(id, soundLocation, title, subtitle, duration, fadeInDuration, fadeOutDuration, minY, maxY, dimensionLocation);
 	}
 
 	@Override
