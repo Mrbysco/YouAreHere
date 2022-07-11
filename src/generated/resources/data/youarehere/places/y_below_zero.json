@@ -12,7 +12,8 @@
         "soundLocation": "minecraft:block.lava.pop",
         "title": "Below Zero",
         "minY": -64,
-        "maxY": 0
+        "maxY": 0,
+        "dimension": "minecraft:overworld"
       }
     }
   ]

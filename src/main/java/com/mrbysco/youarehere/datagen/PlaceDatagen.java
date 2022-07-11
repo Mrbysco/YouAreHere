@@ -92,6 +92,7 @@ public class PlaceDatagen {
 							YPlaceBuilder.y(-64, 0)
 									.setTitle("Below Zero")
 									.setSoundLocation(SoundEvents.LAVA_POP.getLocation())
+									.setDimensionLocation(new ResourceLocation("overworld"))
 									::save
 					)
 					.build(consumer, new ResourceLocation(YouAreHere.MOD_ID, "y_below_zero"));
