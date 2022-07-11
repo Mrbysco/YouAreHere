@@ -95,6 +95,19 @@ public class PlaceDatagen {
 									::save
 					)
 					.build(consumer, new ResourceLocation(YouAreHere.MOD_ID, "y_below_zero"));
+
+			new ConditionalPlace.Builder()
+					.addCondition(
+							new EnableYPlacesCondition()
+					)
+					.addPlace(
+							YPlaceBuilder.y(127, 256)
+									.setTitle("On the ceiling")
+									.setSoundLocation(SoundEvents.LAVA_POP.getLocation())
+									.setDimensionLocation(new ResourceLocation("the_nether"))
+									::save
+					)
+					.build(consumer, new ResourceLocation(YouAreHere.MOD_ID, "above_ceiling"));
 		}
 	}
 

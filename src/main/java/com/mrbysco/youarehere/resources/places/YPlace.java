@@ -6,18 +6,23 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.entity.player.Player;
+import net.minecraftforge.registries.ForgeRegistryEntry;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 
 public class YPlace extends BasePlace {
 	private final int minY;
 	private final int maxY;
+	@Nullable
+	private final ResourceLocation dimensionLocation;
 
 	public YPlace(ResourceLocation id, ResourceLocation soundLocation, String title, String subtitle, int duration,
-				  int fadeInDuration, int fadeOutDuration, int minY, int maxY) {
+				  int fadeInDuration, int fadeOutDuration, int minY, int maxY, ResourceLocation dimensionLocation) {
 		super(id, soundLocation, title, subtitle, duration, fadeInDuration, fadeOutDuration);
 		this.minY = minY;
 		this.maxY = maxY;
+		this.dimensionLocation = dimensionLocation;
 	}
 
 	public int minY() {
@@ -28,8 +33,12 @@ public class YPlace extends BasePlace {
 		return maxY;
 	}
 
+	public ResourceLocation getDimensionLocation() {
+		return dimensionLocation;
+	}
+
 	public int hashCode() {
-		return Objects.hash(id, soundLocation, title, subtitle, duration, fadeInDuration, fadeOutDuration, minY, maxY);
+		return Objects.hash(id, soundLocation, title, subtitle, duration, fadeInDuration, fadeOutDuration, minY, maxY, dimensionLocation);
 	}
 
 	@Override
@@ -43,12 +52,14 @@ public class YPlace extends BasePlace {
 				"fadeInDuration=" + fadeInDuration + ", " +
 				"fadeOutDuration=" + fadeOutDuration + ", " +
 				"minY=" + minY + ", " +
-				"maxY=" + maxY + ']';
+				"maxY=" + maxY + ", " +
+				"dimensionLocation=" + dimensionLocation + ']';
 	}
 
 	@Override
 	public boolean matches(Player player) {
-		return player.getY() >= this.minY() && player.getY() <= this.maxY();
+		boolean dimensionMatches = getDimensionLocation() == null || player.level.dimension().location().equals(getDimensionLocation());
+		return player.getY() >= this.minY() && player.getY() <= this.maxY() && dimensionMatches;
 	}
 
 	@Override
@@ -57,6 +68,9 @@ public class YPlace extends BasePlace {
 
 		jsonobject.addProperty("minY", minY);
 		jsonobject.addProperty("maxY", maxY);
+		if (dimensionLocation != null) {
+			jsonobject.addProperty("dimension", dimensionLocation.toString());
+		}
 
 		return jsonobject;
 	}
@@ -83,8 +97,9 @@ public class YPlace extends BasePlace {
 			if (!jsonObject.has("maxY"))
 				throw new com.google.gson.JsonSyntaxException("Missing maxY, expected to find a maxY integer");
 			int maxY = GsonHelper.getAsInt(jsonObject, "maxY");
+			ResourceLocation dimension = jsonObject.has("dimension") ? ResourceLocation.tryParse(GsonHelper.getAsString(jsonObject, "dimension", "")) : null;
 
-			return new YPlace(id, soundLocation, title, subtitle, duration, fadeInDuration, fadeOutDuration, minY, maxY);
+			return new YPlace(id, soundLocation, title, subtitle, duration, fadeInDuration, fadeOutDuration, minY, maxY, dimension);
 		}
 
 		public YPlace fromNetwork(ResourceLocation id, FriendlyByteBuf friendlyByteBuf) {
@@ -97,8 +112,10 @@ public class YPlace extends BasePlace {
 			ResourceLocation soundLocation = sound.isEmpty() ? null : ResourceLocation.tryParse(sound);
 			int minY = friendlyByteBuf.readVarInt();
 			int maxY = friendlyByteBuf.readVarInt();
+			String dimension = friendlyByteBuf.readUtf();
+			ResourceLocation dimensionLocation = dimension.isEmpty() ? null : ResourceLocation.tryParse(dimension);
 
-			return new YPlace(id, soundLocation, title, subtitle, duration, fadeInDuration, fadeOutDuration, minY, maxY);
+			return new YPlace(id, soundLocation, title, subtitle, duration, fadeInDuration, fadeOutDuration, minY, maxY, dimensionLocation);
 		}
 
 		public void toNetwork(FriendlyByteBuf friendlyByteBuf, YPlace biomePlace) {
@@ -107,6 +124,7 @@ public class YPlace extends BasePlace {
 			friendlyByteBuf.writeVarInt(biomePlace.duration);
 			friendlyByteBuf.writeVarInt(biomePlace.fadeInDuration);
 			friendlyByteBuf.writeVarInt(biomePlace.fadeOutDuration);
+			friendlyByteBuf.writeUtf(biomePlace.dimensionLocation == null ? "" : biomePlace.dimensionLocation.toString());
 
 			friendlyByteBuf.writeUtf(biomePlace.soundLocation == null ? "" : biomePlace.soundLocation.toString());
 			friendlyByteBuf.writeVarInt(biomePlace.minY);
