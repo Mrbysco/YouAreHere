@@ -9,16 +9,19 @@ import java.util.Objects;
 public abstract class BasePlace {
 	protected final ResourceLocation id;
 	protected final ResourceLocation soundLocation;
+	protected final float volume, pitch;
 	protected final String title;
 	protected final String subtitle;
 	protected final int duration;
 	protected final int fadeInDuration;
 	protected final int fadeOutDuration;
 
-	public BasePlace(ResourceLocation id, ResourceLocation soundLocation, String title, String subtitle,
-					 int duration, int fadeInDuration, int fadeOutDuration) {
+	public BasePlace(ResourceLocation id, ResourceLocation soundLocation, float volume, float pitch, String title,
+					 String subtitle, int duration, int fadeInDuration, int fadeOutDuration) {
 		this.id = id;
 		this.soundLocation = soundLocation;
+		this.volume = volume;
+		this.pitch = pitch;
 		this.title = title;
 		this.subtitle = subtitle;
 		this.duration = duration;
@@ -32,6 +35,14 @@ public abstract class BasePlace {
 
 	public ResourceLocation soundLocation() {
 		return soundLocation;
+	}
+
+	public float getVolume() {
+		return volume;
+	}
+
+	public float getPitch() {
+		return pitch;
 	}
 
 	public String title() {
@@ -61,6 +72,8 @@ public abstract class BasePlace {
 		var that = (BasePlace) obj;
 		return Objects.equals(this.id, that.id) &&
 				Objects.equals(this.soundLocation, that.soundLocation) &&
+				Objects.equals(this.volume, that.volume) &&
+				Objects.equals(this.pitch, that.pitch) &&
 				Objects.equals(this.title, that.title) &&
 				Objects.equals(this.subtitle, that.subtitle) &&
 				this.duration == that.duration &&
@@ -70,7 +83,7 @@ public abstract class BasePlace {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, soundLocation, title, subtitle, duration, fadeInDuration, fadeOutDuration);
+		return Objects.hash(id, soundLocation, volume, pitch, title, subtitle, duration, fadeInDuration, fadeOutDuration);
 	}
 
 	@Override
@@ -78,6 +91,8 @@ public abstract class BasePlace {
 		return "BasePlace[" +
 				"id=" + id + ", " +
 				"soundLocation=" + soundLocation + ", " +
+				"volume=" + volume + ", " +
+				"pitch=" + pitch + ", " +
 				"title=" + title + ", " +
 				"subtitle=" + subtitle + ", " +
 				"duration=" + duration + ", " +
@@ -89,6 +104,10 @@ public abstract class BasePlace {
 		if (this.soundLocation != null) {
 			jsonobject.addProperty("soundLocation", this.soundLocation.toString());
 		}
+		if (volume != 1.0)
+			jsonobject.addProperty("volume", this.volume);
+		if (pitch != 1.0)
+			jsonobject.addProperty("pitch", this.pitch);
 		jsonobject.addProperty("title", this.title);
 		jsonobject.addProperty("subtitle", this.subtitle);
 		if (this.duration > 0)

@@ -61,7 +61,7 @@ public class ShowTitleMessage {
 						if (place.soundLocation() != null) {
 							SoundEvent sound = ForgeRegistries.SOUND_EVENTS.getValue(place.soundLocation());
 							if (sound != null) {
-								player.level.playLocalSound(player.getX(), player.getY(), player.getZ(), sound, SoundSource.AMBIENT, 1.0F, 1.0F, false);
+								player.level.playLocalSound(player.getX(), player.getY(), player.getZ(), sound, SoundSource.AMBIENT, place.getVolume(), place.getPitch(), false);
 							}
 						}
 					});
