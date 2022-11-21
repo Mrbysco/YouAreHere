@@ -62,7 +62,7 @@ public class ConditionalPlace {
 			for (JsonElement ele : items) {
 				if (!ele.isJsonObject())
 					throw new JsonSyntaxException("Invalid places entry at index " + idx + " Must be JsonObject");
-				if (CraftingHelper.processConditions(GsonHelper.getAsJsonArray(ele.getAsJsonObject(), "conditions")))
+				if (CraftingHelper.processConditions(GsonHelper.getAsJsonArray(ele.getAsJsonObject(), "conditions"), ICondition.IContext.EMPTY))
 					return (T) PlaceManager.fromJson(placeId, GsonHelper.getAsJsonObject(ele.getAsJsonObject(), "place"));
 				idx++;
 			}

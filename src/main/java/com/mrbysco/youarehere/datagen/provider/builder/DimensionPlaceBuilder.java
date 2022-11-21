@@ -12,6 +12,7 @@ import java.util.function.Consumer;
 
 public class DimensionPlaceBuilder implements PlaceBuilder {
 	private ResourceLocation soundLocation;
+	private float volume, pitch;
 	private String title;
 	private String subtitle;
 	private int duration;
@@ -21,6 +22,8 @@ public class DimensionPlaceBuilder implements PlaceBuilder {
 
 	public DimensionPlaceBuilder(ResourceLocation dimensionLocation) {
 		this.dimensionLocation = dimensionLocation;
+		this.volume = 1.0F;
+		this.pitch = 1.0F;
 	}
 
 	public static DimensionPlaceBuilder dimension(ResourceLocation dimensionLocation) {
@@ -29,6 +32,16 @@ public class DimensionPlaceBuilder implements PlaceBuilder {
 
 	public DimensionPlaceBuilder setSoundLocation(ResourceLocation soundLocation) {
 		this.soundLocation = soundLocation;
+		return this;
+	}
+
+	public DimensionPlaceBuilder setVolume(float volume) {
+		this.volume = volume;
+		return this;
+	}
+
+	public DimensionPlaceBuilder setPitch(float pitch) {
+		this.pitch = pitch;
 		return this;
 	}
 
@@ -63,7 +76,7 @@ public class DimensionPlaceBuilder implements PlaceBuilder {
 	}
 
 	public DimensionPlace build(ResourceLocation id) {
-		return new DimensionPlace(id, soundLocation, title, subtitle, duration, fadeInDuration, fadeOutDuration, dimensionLocation);
+		return new DimensionPlace(id, soundLocation, volume, pitch, title, subtitle, duration, fadeInDuration, fadeOutDuration, dimensionLocation);
 	}
 
 	@Override

@@ -17,9 +17,9 @@ public class YPlace extends BasePlace {
 	@Nullable
 	private final ResourceLocation dimensionLocation;
 
-	public YPlace(ResourceLocation id, ResourceLocation soundLocation, String title, String subtitle, int duration,
-				  int fadeInDuration, int fadeOutDuration, int minY, int maxY, ResourceLocation dimensionLocation) {
-		super(id, soundLocation, title, subtitle, duration, fadeInDuration, fadeOutDuration);
+	public YPlace(ResourceLocation id, ResourceLocation soundLocation, float volume, float pitch, String title,
+				  String subtitle, int duration, int fadeInDuration, int fadeOutDuration, int minY, int maxY, ResourceLocation dimensionLocation) {
+		super(id, soundLocation, volume, pitch, title, subtitle, duration, fadeInDuration, fadeOutDuration);
 		this.minY = minY;
 		this.maxY = maxY;
 		this.dimensionLocation = dimensionLocation;
@@ -38,7 +38,7 @@ public class YPlace extends BasePlace {
 	}
 
 	public int hashCode() {
-		return Objects.hash(id, soundLocation, title, subtitle, duration, fadeInDuration, fadeOutDuration, minY, maxY, dimensionLocation);
+		return Objects.hash(id, soundLocation, volume, pitch, title, subtitle, duration, fadeInDuration, fadeOutDuration, minY, maxY, dimensionLocation);
 	}
 
 	@Override
@@ -46,6 +46,8 @@ public class YPlace extends BasePlace {
 		return "BasePlace[" +
 				"id=" + id + ", " +
 				"soundLocation=" + soundLocation + ", " +
+				"volume=" + volume + ", " +
+				"pitch=" + pitch + ", " +
 				"title=" + title + ", " +
 				"subtitle=" + subtitle + ", " +
 				"duration=" + duration + ", " +
@@ -90,6 +92,8 @@ public class YPlace extends BasePlace {
 
 			String sound = GsonHelper.getAsString(jsonObject, "soundLocation", "");
 			ResourceLocation soundLocation = sound.isEmpty() ? null : ResourceLocation.tryParse(sound);
+			float volume = GsonHelper.getAsFloat(jsonObject, "volume", 1.0F);
+			float pitch = GsonHelper.getAsFloat(jsonObject, "pitch", 1.0F);
 
 			if (!jsonObject.has("minY"))
 				throw new com.google.gson.JsonSyntaxException("Missing minY, expected to find a minY integer");
@@ -99,7 +103,7 @@ public class YPlace extends BasePlace {
 			int maxY = GsonHelper.getAsInt(jsonObject, "maxY");
 			ResourceLocation dimension = jsonObject.has("dimension") ? ResourceLocation.tryParse(GsonHelper.getAsString(jsonObject, "dimension", "")) : null;
 
-			return new YPlace(id, soundLocation, title, subtitle, duration, fadeInDuration, fadeOutDuration, minY, maxY, dimension);
+			return new YPlace(id, soundLocation, volume, pitch, title, subtitle, duration, fadeInDuration, fadeOutDuration, minY, maxY, dimension);
 		}
 
 		public YPlace fromNetwork(ResourceLocation id, FriendlyByteBuf friendlyByteBuf) {
@@ -109,26 +113,30 @@ public class YPlace extends BasePlace {
 			int fadeInDuration = friendlyByteBuf.readVarInt();
 			int fadeOutDuration = friendlyByteBuf.readVarInt();
 			String sound = friendlyByteBuf.readUtf();
+			float volume = friendlyByteBuf.readFloat();
+			float pitch = friendlyByteBuf.readFloat();
 			ResourceLocation soundLocation = sound.isEmpty() ? null : ResourceLocation.tryParse(sound);
 			int minY = friendlyByteBuf.readVarInt();
 			int maxY = friendlyByteBuf.readVarInt();
 			String dimension = friendlyByteBuf.readUtf();
 			ResourceLocation dimensionLocation = dimension.isEmpty() ? null : ResourceLocation.tryParse(dimension);
 
-			return new YPlace(id, soundLocation, title, subtitle, duration, fadeInDuration, fadeOutDuration, minY, maxY, dimensionLocation);
+			return new YPlace(id, soundLocation, volume, pitch, title, subtitle, duration, fadeInDuration, fadeOutDuration, minY, maxY, dimensionLocation);
 		}
 
-		public void toNetwork(FriendlyByteBuf friendlyByteBuf, YPlace biomePlace) {
-			friendlyByteBuf.writeUtf(biomePlace.title);
-			friendlyByteBuf.writeUtf(biomePlace.subtitle);
-			friendlyByteBuf.writeVarInt(biomePlace.duration);
-			friendlyByteBuf.writeVarInt(biomePlace.fadeInDuration);
-			friendlyByteBuf.writeVarInt(biomePlace.fadeOutDuration);
+		public void toNetwork(FriendlyByteBuf friendlyByteBuf, YPlace yPlace) {
+			friendlyByteBuf.writeUtf(yPlace.title);
+			friendlyByteBuf.writeUtf(yPlace.subtitle);
+			friendlyByteBuf.writeVarInt(yPlace.duration);
+			friendlyByteBuf.writeVarInt(yPlace.fadeInDuration);
+			friendlyByteBuf.writeVarInt(yPlace.fadeOutDuration);
 
-			friendlyByteBuf.writeUtf(biomePlace.soundLocation == null ? "" : biomePlace.soundLocation.toString());
-			friendlyByteBuf.writeVarInt(biomePlace.minY);
-			friendlyByteBuf.writeVarInt(biomePlace.maxY);
-			friendlyByteBuf.writeUtf(biomePlace.dimensionLocation == null ? "" : biomePlace.dimensionLocation.toString());
+			friendlyByteBuf.writeUtf(yPlace.soundLocation == null ? "" : yPlace.soundLocation.toString());
+			friendlyByteBuf.writeFloat(yPlace.volume);
+			friendlyByteBuf.writeFloat(yPlace.pitch);
+			friendlyByteBuf.writeVarInt(yPlace.minY);
+			friendlyByteBuf.writeVarInt(yPlace.maxY);
+			friendlyByteBuf.writeUtf(yPlace.dimensionLocation == null ? "" : yPlace.dimensionLocation.toString());
 		}
 	}
 }

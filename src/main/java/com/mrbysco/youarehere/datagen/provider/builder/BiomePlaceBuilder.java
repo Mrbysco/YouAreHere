@@ -12,6 +12,7 @@ import java.util.function.Consumer;
 
 public class BiomePlaceBuilder implements PlaceBuilder {
 	private ResourceLocation soundLocation;
+	private float volume, pitch;
 	private String title;
 	private String subtitle;
 	private int duration;
@@ -21,6 +22,8 @@ public class BiomePlaceBuilder implements PlaceBuilder {
 
 	public BiomePlaceBuilder(ResourceLocation biomeLocation) {
 		this.biomeLocation = biomeLocation;
+		this.volume = 1.0F;
+		this.pitch = 1.0F;
 	}
 
 	public static BiomePlaceBuilder biome(ResourceLocation biomeLocation) {
@@ -29,6 +32,16 @@ public class BiomePlaceBuilder implements PlaceBuilder {
 
 	public BiomePlaceBuilder setSoundLocation(ResourceLocation soundLocation) {
 		this.soundLocation = soundLocation;
+		return this;
+	}
+
+	public BiomePlaceBuilder setVolume(float volume) {
+		this.volume = volume;
+		return this;
+	}
+
+	public BiomePlaceBuilder setPitch(float pitch) {
+		this.pitch = pitch;
 		return this;
 	}
 
@@ -63,7 +76,7 @@ public class BiomePlaceBuilder implements PlaceBuilder {
 	}
 
 	public BiomePlace build(ResourceLocation id) {
-		return new BiomePlace(id, soundLocation, title, subtitle, duration, fadeInDuration, fadeOutDuration, biomeLocation);
+		return new BiomePlace(id, soundLocation, volume, pitch, title, subtitle, duration, fadeInDuration, fadeOutDuration, biomeLocation);
 	}
 
 	@Override

@@ -14,9 +14,9 @@ import java.util.Objects;
 public class BiomePlace extends BasePlace {
 	private final ResourceLocation biomeLocation;
 
-	public BiomePlace(ResourceLocation id, ResourceLocation soundLocation, String title, String subtitle, int duration,
-					  int fadeInDuration, int fadeOutDuration, ResourceLocation biomeLocation) {
-		super(id, soundLocation, title, subtitle, duration, fadeInDuration, fadeOutDuration);
+	public BiomePlace(ResourceLocation id, ResourceLocation soundLocation, float volume, float pitch, String title,
+					  String subtitle, int duration, int fadeInDuration, int fadeOutDuration, ResourceLocation biomeLocation) {
+		super(id, soundLocation, volume, pitch, title, subtitle, duration, fadeInDuration, fadeOutDuration);
 		this.biomeLocation = biomeLocation;
 	}
 
@@ -25,7 +25,7 @@ public class BiomePlace extends BasePlace {
 	}
 
 	public int hashCode() {
-		return Objects.hash(id, soundLocation, title, subtitle, duration, fadeInDuration, fadeOutDuration, biomeLocation);
+		return Objects.hash(id, soundLocation, volume, pitch, title, subtitle, duration, fadeInDuration, fadeOutDuration, biomeLocation);
 	}
 
 	@Override
@@ -33,6 +33,8 @@ public class BiomePlace extends BasePlace {
 		return "BasePlace[" +
 				"id=" + id + ", " +
 				"soundLocation=" + soundLocation + ", " +
+				"volume=" + volume + ", " +
+				"pitch=" + pitch + ", " +
 				"title=" + title + ", " +
 				"subtitle=" + subtitle + ", " +
 				"duration=" + duration + ", " +
@@ -71,12 +73,14 @@ public class BiomePlace extends BasePlace {
 
 			String sound = GsonHelper.getAsString(jsonObject, "soundLocation", "");
 			ResourceLocation soundLocation = sound.isEmpty() ? null : ResourceLocation.tryParse(sound);
+			float volume = GsonHelper.getAsFloat(jsonObject, "volume", 1.0F);
+			float pitch = GsonHelper.getAsFloat(jsonObject, "pitch", 1.0F);
 
 			if (!jsonObject.has("biome"))
 				throw new com.google.gson.JsonSyntaxException("Missing biome, expected to find a location string");
 			ResourceLocation biomeLocation = ResourceLocation.tryParse(GsonHelper.getAsString(jsonObject, "biome", ""));
 
-			return new BiomePlace(id, soundLocation, title, subtitle, duration, fadeInDuration, fadeOutDuration, biomeLocation);
+			return new BiomePlace(id, soundLocation, volume, pitch, title, subtitle, duration, fadeInDuration, fadeOutDuration, biomeLocation);
 		}
 
 		public BiomePlace fromNetwork(ResourceLocation id, FriendlyByteBuf friendlyByteBuf) {
@@ -87,11 +91,13 @@ public class BiomePlace extends BasePlace {
 			int fadeOutDuration = friendlyByteBuf.readVarInt();
 
 			String sound = friendlyByteBuf.readUtf();
+			float volume = friendlyByteBuf.readFloat();
+			float pitch = friendlyByteBuf.readFloat();
 			String biome = friendlyByteBuf.readUtf();
 			ResourceLocation soundLocation = sound.isEmpty() ? null : ResourceLocation.tryParse(sound);
 			ResourceLocation biomeLocation = biome.isEmpty() ? null : ResourceLocation.tryParse(biome);
 
-			return new BiomePlace(id, soundLocation, title, subtitle, duration, fadeInDuration, fadeOutDuration, biomeLocation);
+			return new BiomePlace(id, soundLocation, volume, pitch, title, subtitle, duration, fadeInDuration, fadeOutDuration, biomeLocation);
 		}
 
 		public void toNetwork(FriendlyByteBuf friendlyByteBuf, BiomePlace biomePlace) {
@@ -102,6 +108,8 @@ public class BiomePlace extends BasePlace {
 			friendlyByteBuf.writeVarInt(biomePlace.fadeOutDuration);
 
 			friendlyByteBuf.writeUtf(biomePlace.soundLocation == null ? "" : biomePlace.soundLocation.toString());
+			friendlyByteBuf.writeFloat(biomePlace.volume);
+			friendlyByteBuf.writeFloat(biomePlace.pitch);
 			friendlyByteBuf.writeUtf(biomePlace.biomeLocation == null ? "" : biomePlace.biomeLocation.toString());
 		}
 	}

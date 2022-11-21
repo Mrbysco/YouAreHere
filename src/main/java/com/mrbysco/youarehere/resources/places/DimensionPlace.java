@@ -13,9 +13,9 @@ import java.util.Objects;
 public class DimensionPlace extends BasePlace {
 	private final ResourceLocation dimensionLocation;
 
-	public DimensionPlace(ResourceLocation id, ResourceLocation soundLocation, String title, String subtitle, int duration,
-						  int fadeInDuration, int fadeOutDuration, ResourceLocation dimensionLocation) {
-		super(id, soundLocation, title, subtitle, duration, fadeInDuration, fadeOutDuration);
+	public DimensionPlace(ResourceLocation id, ResourceLocation soundLocation, float volume, float pitch, String title,
+						  String subtitle, int duration, int fadeInDuration, int fadeOutDuration, ResourceLocation dimensionLocation) {
+		super(id, soundLocation, volume, pitch, title, subtitle, duration, fadeInDuration, fadeOutDuration);
 		this.dimensionLocation = dimensionLocation;
 	}
 
@@ -24,7 +24,7 @@ public class DimensionPlace extends BasePlace {
 	}
 
 	public int hashCode() {
-		return Objects.hash(id, soundLocation, title, subtitle, duration, fadeInDuration, fadeOutDuration, dimensionLocation);
+		return Objects.hash(id, soundLocation, volume, pitch, title, subtitle, duration, fadeInDuration, fadeOutDuration, dimensionLocation);
 	}
 
 	@Override
@@ -32,6 +32,8 @@ public class DimensionPlace extends BasePlace {
 		return "BasePlace[" +
 				"id=" + id + ", " +
 				"soundLocation=" + soundLocation + ", " +
+				"volume=" + volume + ", " +
+				"pitch=" + pitch + ", " +
 				"title=" + title + ", " +
 				"subtitle=" + subtitle + ", " +
 				"duration=" + duration + ", " +
@@ -69,12 +71,14 @@ public class DimensionPlace extends BasePlace {
 
 			String sound = GsonHelper.getAsString(jsonObject, "soundLocation", "");
 			ResourceLocation soundLocation = sound.isEmpty() ? null : ResourceLocation.tryParse(sound);
+			float volume = GsonHelper.getAsFloat(jsonObject, "volume", 1.0F);
+			float pitch = GsonHelper.getAsFloat(jsonObject, "pitch", 1.0F);
 
 			if (!jsonObject.has("dimension"))
 				throw new com.google.gson.JsonSyntaxException("Missing dimension, expected to find a location string");
 			ResourceLocation dimensionLocation = ResourceLocation.tryParse(GsonHelper.getAsString(jsonObject, "dimension", ""));
 
-			return new DimensionPlace(id, soundLocation, title, subtitle, duration, fadeInDuration, fadeOutDuration, dimensionLocation);
+			return new DimensionPlace(id, soundLocation, volume, pitch, title, subtitle, duration, fadeInDuration, fadeOutDuration, dimensionLocation);
 		}
 
 		public DimensionPlace fromNetwork(ResourceLocation id, FriendlyByteBuf friendlyByteBuf) {
@@ -85,11 +89,13 @@ public class DimensionPlace extends BasePlace {
 			int fadeOutDuration = friendlyByteBuf.readVarInt();
 
 			String sound = friendlyByteBuf.readUtf();
+			float volume = friendlyByteBuf.readFloat();
+			float pitch = friendlyByteBuf.readFloat();
 			String dimension = friendlyByteBuf.readUtf();
 			ResourceLocation soundLocation = sound.isEmpty() ? null : ResourceLocation.tryParse(sound);
 			ResourceLocation dimensionLocation = dimension.isEmpty() ? null : ResourceLocation.tryParse(dimension);
 
-			return new DimensionPlace(id, soundLocation, title, subtitle, duration, fadeInDuration, fadeOutDuration, dimensionLocation);
+			return new DimensionPlace(id, soundLocation, volume, pitch, title, subtitle, duration, fadeInDuration, fadeOutDuration, dimensionLocation);
 		}
 
 		public void toNetwork(FriendlyByteBuf friendlyByteBuf, DimensionPlace dimensionPlace) {
@@ -100,6 +106,8 @@ public class DimensionPlace extends BasePlace {
 			friendlyByteBuf.writeVarInt(dimensionPlace.fadeOutDuration);
 
 			friendlyByteBuf.writeUtf(dimensionPlace.soundLocation == null ? "" : dimensionPlace.soundLocation.toString());
+			friendlyByteBuf.writeFloat(dimensionPlace.volume);
+			friendlyByteBuf.writeFloat(dimensionPlace.pitch);
 			friendlyByteBuf.writeUtf(dimensionPlace.dimensionLocation == null ? "" : dimensionPlace.dimensionLocation.toString());
 		}
 	}

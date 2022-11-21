@@ -13,6 +13,7 @@ import java.util.function.Consumer;
 
 public class YPlaceBuilder implements PlaceBuilder {
 	private ResourceLocation soundLocation;
+	private float volume, pitch;
 	private String title;
 	private String subtitle;
 	private int duration;
@@ -26,6 +27,8 @@ public class YPlaceBuilder implements PlaceBuilder {
 	public YPlaceBuilder(int minY, int maxY) {
 		this.minY = minY;
 		this.maxY = maxY;
+		this.volume = 1.0F;
+		this.pitch = 1.0F;
 	}
 
 	public static YPlaceBuilder y(int minY, int maxY) {
@@ -34,6 +37,16 @@ public class YPlaceBuilder implements PlaceBuilder {
 
 	public YPlaceBuilder setSoundLocation(ResourceLocation soundLocation) {
 		this.soundLocation = soundLocation;
+		return this;
+	}
+
+	public YPlaceBuilder setVolume(float volume) {
+		this.volume = volume;
+		return this;
+	}
+
+	public YPlaceBuilder setPitch(float pitch) {
+		this.pitch = pitch;
 		return this;
 	}
 
@@ -78,7 +91,7 @@ public class YPlaceBuilder implements PlaceBuilder {
 	}
 
 	public YPlace build(ResourceLocation id) {
-		return new YPlace(id, soundLocation, title, subtitle, duration, fadeInDuration, fadeOutDuration, minY, maxY, dimensionLocation);
+		return new YPlace(id, soundLocation, volume, pitch, title, subtitle, duration, fadeInDuration, fadeOutDuration, minY, maxY, dimensionLocation);
 	}
 
 	@Override
