@@ -45,7 +45,7 @@ public class BiomePlace extends BasePlace {
 	@Override
 	public boolean matches(Player player) {
 		BlockPos pos = player.blockPosition();
-		ResourceLocation biomeLocation = player.level.getBiome(pos).unwrapKey().get().location();
+		ResourceLocation biomeLocation = player.level().getBiome(pos).unwrapKey().get().location();
 		return biomeLocation != null && biomeLocation.equals(this.biomeLocation());
 	}
 

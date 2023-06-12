@@ -43,7 +43,7 @@ public class DimensionPlace extends BasePlace {
 
 	@Override
 	public boolean matches(Player player) {
-		return player.level.dimension().location().equals(this.dimensionLocation());
+		return player.level().dimension().location().equals(this.dimensionLocation());
 	}
 
 	@Override

@@ -20,7 +20,7 @@ public class TitleHandler {
 	public static void onPlayerTick(PlayerTickEvent event) {
 		if (event.side.isServer()) {
 			ServerPlayer player = (ServerPlayer) event.player;
-			if (player.level.getGameTime() % 40 == 0 && !PlaceManager.INSTANCE.getPlaces().isEmpty()) {
+			if (player.level().getGameTime() % 40 == 0 && !PlaceManager.INSTANCE.getPlaces().isEmpty()) {
 				CompoundTag persistentData = player.getPersistentData();
 				CompoundTag hereData = persistentData.contains("YouAreHere") ? persistentData.getCompound("YouAreHere") : new CompoundTag();
 				for (BasePlace place : PlaceManager.INSTANCE.getPlaces()) {

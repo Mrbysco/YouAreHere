@@ -125,7 +125,7 @@ public class PlaceManager extends SimpleJsonResourceReloadListener {
 
 	@SubscribeEvent
 	public static void syncPlaces(PlayerLoggedInEvent event) {
-		if (!event.getEntity().level.isClientSide)
+		if (!event.getEntity().level().isClientSide)
 			INSTANCE.syncToPlayer((ServerPlayer) event.getEntity());
 
 		if (ServerLifecycleHooks.getCurrentServer() != null)
