@@ -1,18 +1,16 @@
 package com.mrbysco.youarehere.registry.condition;
 
-import com.google.gson.JsonObject;
-import com.mrbysco.youarehere.YouAreHere;
+import com.mojang.serialization.Codec;
 import com.mrbysco.youarehere.config.HereConfig;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.common.crafting.conditions.ICondition;
-import net.minecraftforge.common.crafting.conditions.IConditionSerializer;
+import net.neoforged.neoforge.common.conditions.ICondition;
 
 public class EnableBiomePlacesCondition implements ICondition {
-	private static final ResourceLocation ID = new ResourceLocation(YouAreHere.MOD_ID, "enable_biome_places");
 
-	@Override
-	public ResourceLocation getID() {
-		return ID;
+	public static final EnableBiomePlacesCondition INSTANCE = new EnableBiomePlacesCondition();
+
+	public static final Codec<EnableBiomePlacesCondition> CODEC = Codec.unit(INSTANCE).stable();
+
+	private EnableBiomePlacesCondition() {
 	}
 
 	@Override
@@ -20,19 +18,13 @@ public class EnableBiomePlacesCondition implements ICondition {
 		return HereConfig.COMMON.enableBiomePlaces.get();
 	}
 
-	public static class Serializer implements IConditionSerializer<EnableBiomePlacesCondition> {
-		public static final EnableBiomePlacesCondition.Serializer INSTANCE = new EnableBiomePlacesCondition.Serializer();
+	@Override
+	public Codec<? extends ICondition> codec() {
+		return CODEC;
+	}
 
-		public void write(JsonObject json, EnableBiomePlacesCondition value) {
-
-		}
-
-		public EnableBiomePlacesCondition read(JsonObject json) {
-			return new EnableBiomePlacesCondition();
-		}
-
-		public ResourceLocation getID() {
-			return EnableBiomePlacesCondition.ID;
-		}
+	@Override
+	public String toString() {
+		return "default_biome_enabled";
 	}
 }

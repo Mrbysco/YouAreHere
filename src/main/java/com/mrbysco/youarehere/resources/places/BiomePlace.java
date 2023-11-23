@@ -1,21 +1,49 @@
 package com.mrbysco.youarehere.resources.places;
 
-import com.google.gson.JsonObject;
-import com.mrbysco.youarehere.registry.PlaceTypeRegistry;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.mrbysco.youarehere.YouAreHere;
+import com.mrbysco.youarehere.registry.condition.PlaceType;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
+import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.biome.Biome;
+import net.neoforged.neoforge.common.conditions.ConditionalOps;
+import net.neoforged.neoforge.common.conditions.WithConditions;
 
 import java.util.Objects;
+import java.util.Optional;
 
 public class BiomePlace extends BasePlace {
+	public static final ResourceKey<Registry<BiomePlace>> REGISTRY_KEY = ResourceKey.createRegistryKey(
+			new ResourceLocation(YouAreHere.MOD_ID, "biome"));
+	public static final Codec<BiomePlace> DIRECT_CODEC = ExtraCodecs.catchDecoderException(
+			RecordCodecBuilder.create(
+					apply -> apply.group(
+									ResourceLocation.CODEC.fieldOf("biome").forGetter(BiomePlace::biomeLocation),
+									ResourceLocation.CODEC.fieldOf("sound").forGetter(BiomePlace::soundLocation),
+									ExtraCodecs.strictOptionalField(Codec.FLOAT, "volume", 1.0F).forGetter(BiomePlace::getVolume),
+									ExtraCodecs.strictOptionalField(Codec.FLOAT, "pitch", 1.0F).forGetter(BiomePlace::getPitch),
+									Codec.STRING.fieldOf("title").forGetter(BiomePlace::title),
+									ExtraCodecs.strictOptionalField(Codec.STRING, "subtitle", "").forGetter(BiomePlace::subtitle),
+									ExtraCodecs.strictOptionalField(Codec.INT, "duration", 20).forGetter(BiomePlace::duration),
+									ExtraCodecs.strictOptionalField(Codec.INT, "fadeInDuration", 20).forGetter(BiomePlace::fadeInDuration),
+									ExtraCodecs.strictOptionalField(Codec.INT, "fadeOutDuration", 20).forGetter(BiomePlace::fadeOutDuration)
+							)
+							.apply(apply, BiomePlace::new)
+			)
+	);
+
+	public static final Codec<Optional<WithConditions<BiomePlace>>> CONDITIONAL_CODEC = ConditionalOps.createConditionalCodecWithConditions(DIRECT_CODEC);
+
 	private final ResourceLocation biomeLocation;
 
-	public BiomePlace(ResourceLocation id, ResourceLocation soundLocation, float volume, float pitch, String title,
-					  String subtitle, int duration, int fadeInDuration, int fadeOutDuration, ResourceLocation biomeLocation) {
-		super(id, soundLocation, volume, pitch, title, subtitle, duration, fadeInDuration, fadeOutDuration);
+	public BiomePlace(ResourceLocation biomeLocation, ResourceLocation soundLocation, float volume, float pitch, String title,
+					  String subtitle, int duration, int fadeInDuration, int fadeOutDuration) {
+		super(soundLocation, volume, pitch, title, subtitle, duration, fadeInDuration, fadeOutDuration);
 		this.biomeLocation = biomeLocation;
 	}
 
@@ -24,93 +52,36 @@ public class BiomePlace extends BasePlace {
 	}
 
 	public int hashCode() {
-		return Objects.hash(id, soundLocation, volume, pitch, title, subtitle, duration, fadeInDuration, fadeOutDuration, biomeLocation);
+		return Objects.hash(biomeLocation, soundLocation, volume, pitch, title, subtitle, duration, fadeInDuration, fadeOutDuration);
 	}
 
 	@Override
 	public String toString() {
-		return "BasePlace[" +
-				"id=" + id + ", " +
-				"soundLocation=" + soundLocation + ", " +
+		return "BiomePlace[" +
+				"biome=" + biomeLocation + ", " +
+				"sound=" + soundLocation + ", " +
 				"volume=" + volume + ", " +
 				"pitch=" + pitch + ", " +
 				"title=" + title + ", " +
 				"subtitle=" + subtitle + ", " +
 				"duration=" + duration + ", " +
 				"fadeInDuration=" + fadeInDuration + ", " +
-				"fadeOutDuration=" + fadeOutDuration + ", " +
-				"biomeLocation=" + biomeLocation + ']';
+				"fadeOutDuration=" + fadeOutDuration + ']';
 	}
 
 	@Override
 	public boolean matches(Player player) {
 		BlockPos pos = player.blockPosition();
-		ResourceLocation biomeLocation = player.level().getBiome(pos).unwrapKey().get().location();
-		return biomeLocation != null && biomeLocation.equals(this.biomeLocation());
-	}
-
-	@Override
-	public JsonObject toJson(JsonObject jsonObject) {
-		JsonObject jsonobject = super.toJson(jsonObject);
-
-		jsonobject.addProperty("biome", this.biomeLocation == null ? "" : this.biomeLocation.toString());
-
-		return jsonobject;
+		ResourceKey<Biome> biomeKey = player.level().getBiome(pos).unwrapKey().orElse(null);
+		if (biomeKey == null) {
+			return false;
+		}
+		ResourceLocation biomeID = biomeKey.location();
+		return biomeID != null && biomeID.equals(this.biomeLocation());
 	}
 
 	@Override
 	public PlaceType getType() {
-		return PlaceTypeRegistry.BIOME_TYPE.get();
-	}
-
-	public static class Serializer implements PlaceType<BiomePlace> {
-		public BiomePlace fromJson(ResourceLocation id, JsonObject jsonObject) {
-			String title = GsonHelper.getAsString(jsonObject, "title", "");
-			String subtitle = GsonHelper.getAsString(jsonObject, "subtitle", "");
-			int duration = GsonHelper.getAsInt(jsonObject, "duration", 20);
-			int fadeInDuration = GsonHelper.getAsInt(jsonObject, "fadeInDuration", 20);
-			int fadeOutDuration = GsonHelper.getAsInt(jsonObject, "fadeOutDuration", 20);
-
-			String sound = GsonHelper.getAsString(jsonObject, "soundLocation", "");
-			ResourceLocation soundLocation = sound.isEmpty() ? null : ResourceLocation.tryParse(sound);
-			float volume = GsonHelper.getAsFloat(jsonObject, "volume", 1.0F);
-			float pitch = GsonHelper.getAsFloat(jsonObject, "pitch", 1.0F);
-
-			if (!jsonObject.has("biome"))
-				throw new com.google.gson.JsonSyntaxException("Missing biome, expected to find a location string");
-			ResourceLocation biomeLocation = ResourceLocation.tryParse(GsonHelper.getAsString(jsonObject, "biome", ""));
-
-			return new BiomePlace(id, soundLocation, volume, pitch, title, subtitle, duration, fadeInDuration, fadeOutDuration, biomeLocation);
-		}
-
-		public BiomePlace fromNetwork(ResourceLocation id, FriendlyByteBuf friendlyByteBuf) {
-			String title = friendlyByteBuf.readUtf();
-			String subtitle = friendlyByteBuf.readUtf();
-			int duration = friendlyByteBuf.readVarInt();
-			int fadeInDuration = friendlyByteBuf.readVarInt();
-			int fadeOutDuration = friendlyByteBuf.readVarInt();
-
-			String sound = friendlyByteBuf.readUtf();
-			float volume = friendlyByteBuf.readFloat();
-			float pitch = friendlyByteBuf.readFloat();
-			String biome = friendlyByteBuf.readUtf();
-			ResourceLocation soundLocation = sound.isEmpty() ? null : ResourceLocation.tryParse(sound);
-			ResourceLocation biomeLocation = biome.isEmpty() ? null : ResourceLocation.tryParse(biome);
-
-			return new BiomePlace(id, soundLocation, volume, pitch, title, subtitle, duration, fadeInDuration, fadeOutDuration, biomeLocation);
-		}
-
-		public void toNetwork(FriendlyByteBuf friendlyByteBuf, BiomePlace biomePlace) {
-			friendlyByteBuf.writeUtf(biomePlace.title);
-			friendlyByteBuf.writeUtf(biomePlace.subtitle);
-			friendlyByteBuf.writeVarInt(biomePlace.duration);
-			friendlyByteBuf.writeVarInt(biomePlace.fadeInDuration);
-			friendlyByteBuf.writeVarInt(biomePlace.fadeOutDuration);
-
-			friendlyByteBuf.writeUtf(biomePlace.soundLocation == null ? "" : biomePlace.soundLocation.toString());
-			friendlyByteBuf.writeFloat(biomePlace.volume);
-			friendlyByteBuf.writeFloat(biomePlace.pitch);
-			friendlyByteBuf.writeUtf(biomePlace.biomeLocation == null ? "" : biomePlace.biomeLocation.toString());
-		}
+		return PlaceType.BIOME;
 	}
 }

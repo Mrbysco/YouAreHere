@@ -1,20 +1,46 @@
 package com.mrbysco.youarehere.resources.places;
 
-import com.google.gson.JsonObject;
-import com.mrbysco.youarehere.registry.PlaceTypeRegistry;
-import net.minecraft.network.FriendlyByteBuf;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import com.mrbysco.youarehere.YouAreHere;
+import com.mrbysco.youarehere.registry.condition.PlaceType;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
+import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.entity.player.Player;
+import net.neoforged.neoforge.common.conditions.ConditionalOps;
+import net.neoforged.neoforge.common.conditions.WithConditions;
 
 import java.util.Objects;
+import java.util.Optional;
 
 public class DimensionPlace extends BasePlace {
+	public static final ResourceKey<Registry<DimensionPlace>> REGISTRY_KEY = ResourceKey.createRegistryKey(
+			new ResourceLocation(YouAreHere.MOD_ID, "dimension"));
+	public static final Codec<DimensionPlace> DIRECT_CODEC = ExtraCodecs.catchDecoderException(
+			RecordCodecBuilder.create(
+					apply -> apply.group(
+									ResourceLocation.CODEC.fieldOf("dimension").forGetter(DimensionPlace::dimensionLocation),
+									ResourceLocation.CODEC.fieldOf("sound").forGetter(BasePlace::soundLocation),
+									ExtraCodecs.strictOptionalField(Codec.FLOAT, "volume", 1.0F).forGetter(BasePlace::getVolume),
+									ExtraCodecs.strictOptionalField(Codec.FLOAT, "pitch", 1.0F).forGetter(BasePlace::getPitch),
+									Codec.STRING.fieldOf("title").forGetter(BasePlace::title),
+									ExtraCodecs.strictOptionalField(Codec.STRING, "subtitle", "").forGetter(BasePlace::subtitle),
+									ExtraCodecs.strictOptionalField(Codec.INT, "duration", 20).forGetter(BasePlace::duration),
+									ExtraCodecs.strictOptionalField(Codec.INT, "fadeInDuration", 20).forGetter(BasePlace::fadeInDuration),
+									ExtraCodecs.strictOptionalField(Codec.INT, "fadeOutDuration", 20).forGetter(BasePlace::fadeOutDuration)
+							)
+							.apply(apply, DimensionPlace::new)
+			)
+	);
+	public static final Codec<Optional<WithConditions<DimensionPlace>>> CONDITIONAL_CODEC = ConditionalOps.createConditionalCodecWithConditions(DIRECT_CODEC);
+
 	private final ResourceLocation dimensionLocation;
 
-	public DimensionPlace(ResourceLocation id, ResourceLocation soundLocation, float volume, float pitch, String title,
-						  String subtitle, int duration, int fadeInDuration, int fadeOutDuration, ResourceLocation dimensionLocation) {
-		super(id, soundLocation, volume, pitch, title, subtitle, duration, fadeInDuration, fadeOutDuration);
+	public DimensionPlace(ResourceLocation dimensionLocation, ResourceLocation soundLocation, float volume, float pitch, String title,
+						  String subtitle, int duration, int fadeInDuration, int fadeOutDuration) {
+		super(soundLocation, volume, pitch, title, subtitle, duration, fadeInDuration, fadeOutDuration);
 		this.dimensionLocation = dimensionLocation;
 	}
 
@@ -23,22 +49,21 @@ public class DimensionPlace extends BasePlace {
 	}
 
 	public int hashCode() {
-		return Objects.hash(id, soundLocation, volume, pitch, title, subtitle, duration, fadeInDuration, fadeOutDuration, dimensionLocation);
+		return Objects.hash(dimensionLocation, soundLocation, volume, pitch, title, subtitle, duration, fadeInDuration, fadeOutDuration);
 	}
 
 	@Override
 	public String toString() {
 		return "BasePlace[" +
-				"id=" + id + ", " +
-				"soundLocation=" + soundLocation + ", " +
+				"dimension=" + dimensionLocation + ", " +
+				"sound=" + soundLocation + ", " +
 				"volume=" + volume + ", " +
 				"pitch=" + pitch + ", " +
 				"title=" + title + ", " +
 				"subtitle=" + subtitle + ", " +
 				"duration=" + duration + ", " +
 				"fadeInDuration=" + fadeInDuration + ", " +
-				"fadeOutDuration=" + fadeOutDuration + ", " +
-				"dimensionLocation=" + dimensionLocation + ']';
+				"fadeOutDuration=" + fadeOutDuration + ']';
 	}
 
 	@Override
@@ -47,67 +72,7 @@ public class DimensionPlace extends BasePlace {
 	}
 
 	@Override
-	public JsonObject toJson(JsonObject jsonObject) {
-		JsonObject jsonobject = super.toJson(jsonObject);
-
-		jsonobject.addProperty("dimension", this.dimensionLocation == null ? "" : this.dimensionLocation.toString());
-
-		return jsonobject;
-	}
-
-	@Override
 	public PlaceType getType() {
-		return PlaceTypeRegistry.DIMENSION_TYPE.get();
-	}
-
-	public static class Serializer implements PlaceType<DimensionPlace> {
-		public DimensionPlace fromJson(ResourceLocation id, JsonObject jsonObject) {
-			String title = GsonHelper.getAsString(jsonObject, "title", "");
-			String subtitle = GsonHelper.getAsString(jsonObject, "subtitle", "");
-			int duration = GsonHelper.getAsInt(jsonObject, "duration", 20);
-			int fadeInDuration = GsonHelper.getAsInt(jsonObject, "fadeInDuration", 20);
-			int fadeOutDuration = GsonHelper.getAsInt(jsonObject, "fadeOutDuration", 20);
-
-			String sound = GsonHelper.getAsString(jsonObject, "soundLocation", "");
-			ResourceLocation soundLocation = sound.isEmpty() ? null : ResourceLocation.tryParse(sound);
-			float volume = GsonHelper.getAsFloat(jsonObject, "volume", 1.0F);
-			float pitch = GsonHelper.getAsFloat(jsonObject, "pitch", 1.0F);
-
-			if (!jsonObject.has("dimension"))
-				throw new com.google.gson.JsonSyntaxException("Missing dimension, expected to find a location string");
-			ResourceLocation dimensionLocation = ResourceLocation.tryParse(GsonHelper.getAsString(jsonObject, "dimension", ""));
-
-			return new DimensionPlace(id, soundLocation, volume, pitch, title, subtitle, duration, fadeInDuration, fadeOutDuration, dimensionLocation);
-		}
-
-		public DimensionPlace fromNetwork(ResourceLocation id, FriendlyByteBuf friendlyByteBuf) {
-			String title = friendlyByteBuf.readUtf();
-			String subtitle = friendlyByteBuf.readUtf();
-			int duration = friendlyByteBuf.readVarInt();
-			int fadeInDuration = friendlyByteBuf.readVarInt();
-			int fadeOutDuration = friendlyByteBuf.readVarInt();
-
-			String sound = friendlyByteBuf.readUtf();
-			float volume = friendlyByteBuf.readFloat();
-			float pitch = friendlyByteBuf.readFloat();
-			String dimension = friendlyByteBuf.readUtf();
-			ResourceLocation soundLocation = sound.isEmpty() ? null : ResourceLocation.tryParse(sound);
-			ResourceLocation dimensionLocation = dimension.isEmpty() ? null : ResourceLocation.tryParse(dimension);
-
-			return new DimensionPlace(id, soundLocation, volume, pitch, title, subtitle, duration, fadeInDuration, fadeOutDuration, dimensionLocation);
-		}
-
-		public void toNetwork(FriendlyByteBuf friendlyByteBuf, DimensionPlace dimensionPlace) {
-			friendlyByteBuf.writeUtf(dimensionPlace.title);
-			friendlyByteBuf.writeUtf(dimensionPlace.subtitle);
-			friendlyByteBuf.writeVarInt(dimensionPlace.duration);
-			friendlyByteBuf.writeVarInt(dimensionPlace.fadeInDuration);
-			friendlyByteBuf.writeVarInt(dimensionPlace.fadeOutDuration);
-
-			friendlyByteBuf.writeUtf(dimensionPlace.soundLocation == null ? "" : dimensionPlace.soundLocation.toString());
-			friendlyByteBuf.writeFloat(dimensionPlace.volume);
-			friendlyByteBuf.writeFloat(dimensionPlace.pitch);
-			friendlyByteBuf.writeUtf(dimensionPlace.dimensionLocation == null ? "" : dimensionPlace.dimensionLocation.toString());
-		}
+		return PlaceType.DIMENSION;
 	}
 }

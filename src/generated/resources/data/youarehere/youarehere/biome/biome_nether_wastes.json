@@ -1,0 +1,10 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "youarehere:enable_biome_places"
+    }
+  ],
+  "biome": "minecraft:nether_wastes",
+  "sound": "minecraft:ui.toast.in",
+  "title": "biome.minecraft.nether_wastes"
+}

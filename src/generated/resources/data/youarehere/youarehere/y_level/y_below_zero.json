@@ -1,0 +1,12 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "youarehere:enable_y_level_places"
+    }
+  ],
+  "dimension": "minecraft:overworld",
+  "maxY": 0,
+  "minY": -64,
+  "sound": "minecraft:block.lava.pop",
+  "title": "youarehere.dimension.below_zero"
+}

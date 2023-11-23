@@ -1,0 +1,10 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "youarehere:enable_biome_places"
+    }
+  ],
+  "biome": "minecraft:savanna_plateau",
+  "sound": "minecraft:ui.toast.in",
+  "title": "biome.minecraft.savanna_plateau"
+}
