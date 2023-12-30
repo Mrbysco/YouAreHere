@@ -2,9 +2,7 @@ package com.mrbysco.youarehere.registry;
 
 import com.mojang.serialization.Codec;
 import com.mrbysco.youarehere.YouAreHere;
-import com.mrbysco.youarehere.registry.condition.EnableBiomePlacesCondition;
-import com.mrbysco.youarehere.registry.condition.EnableDimensionPlacesCondition;
-import com.mrbysco.youarehere.registry.condition.EnableYLevelPlaces;
+import com.mrbysco.youarehere.registry.condition.ConfigEnabledCondition;
 import com.mrbysco.youarehere.resources.places.BiomePlace;
 import com.mrbysco.youarehere.resources.places.DimensionPlace;
 import com.mrbysco.youarehere.resources.places.YLevelPlace;
@@ -26,8 +24,5 @@ public class PlaceTypeRegistry {
 	}
 
 	public static final DeferredRegister<Codec<? extends ICondition>> CONDITION_CODECS = DeferredRegister.create(NeoForgeRegistries.Keys.CONDITION_CODECS, YouAreHere.MOD_ID);
-	public static final DeferredHolder<Codec<? extends ICondition>, Codec<EnableBiomePlacesCondition>> DEFAULT_BIOME_ENABLED = CONDITION_CODECS.register("enable_biome_places", () -> EnableBiomePlacesCondition.CODEC);
-	public static final DeferredHolder<Codec<? extends ICondition>, Codec<EnableDimensionPlacesCondition>> DEFAULT_DIMENSION_ENABLED = CONDITION_CODECS.register("enable_dimension_places", () -> EnableDimensionPlacesCondition.CODEC);
-	public static final DeferredHolder<Codec<? extends ICondition>, Codec<EnableYLevelPlaces>> DEFAULT_Y_LEVEL_ENABLED = CONDITION_CODECS.register("enable_y_level_places", () -> EnableYLevelPlaces.CODEC);
-
+	public static final DeferredHolder<Codec<? extends ICondition>, Codec<ConfigEnabledCondition>> CONFIG_ENABLED = CONDITION_CODECS.register("config_enabled", () -> ConfigEnabledCondition.CODEC);
 }

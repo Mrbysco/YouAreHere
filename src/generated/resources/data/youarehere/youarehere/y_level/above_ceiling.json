@@ -5,9 +5,9 @@
       "config": "y_level"
     }
   ],
-  "dimension": "minecraft:overworld",
-  "maxY": 0,
-  "minY": -64,
+  "dimension": "minecraft:the_nether",
+  "maxY": 256,
+  "minY": 127,
   "sound": "minecraft:block.lava.pop",
   "title": "youarehere.dimension.below_zero"
 }

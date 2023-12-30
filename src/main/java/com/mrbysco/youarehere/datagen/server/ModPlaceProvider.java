@@ -2,9 +2,8 @@ package com.mrbysco.youarehere.datagen.server;
 
 import com.mrbysco.youarehere.YouAreHere;
 import com.mrbysco.youarehere.datagen.provider.PlaceProvider;
-import com.mrbysco.youarehere.registry.condition.EnableBiomePlacesCondition;
-import com.mrbysco.youarehere.registry.condition.EnableDimensionPlacesCondition;
-import com.mrbysco.youarehere.registry.condition.EnableYLevelPlaces;
+import com.mrbysco.youarehere.registry.condition.ConfigDefault;
+import com.mrbysco.youarehere.registry.condition.ConfigEnabledCondition;
 import com.mrbysco.youarehere.resources.places.BiomePlace;
 import com.mrbysco.youarehere.resources.places.DimensionPlace;
 import com.mrbysco.youarehere.resources.places.YLevelPlace;
@@ -27,11 +26,11 @@ public class ModPlaceProvider extends PlaceProvider {
 	protected void start() {
 		registerBiomes();
 
-		addDimensionPlace("dimension_the_nether", new DimensionPlace(new ResourceLocation("the_nether"), SoundEvents.UI_TOAST_CHALLENGE_COMPLETE.getLocation(), 1.0F, 1.0F, "youarehere.dimension.the_nether", "", 20, 20, 20), EnableDimensionPlacesCondition.INSTANCE);
-		addDimensionPlace("dimension_the_end", new DimensionPlace(new ResourceLocation("the_end"), SoundEvents.UI_TOAST_CHALLENGE_COMPLETE.getLocation(), 1.0F, 1.0F, "youarehere.dimension.the_end", "", 20, 20, 20), EnableDimensionPlacesCondition.INSTANCE);
+		addDimensionPlace("dimension_the_nether", new DimensionPlace(new ResourceLocation("the_nether"), SoundEvents.UI_TOAST_CHALLENGE_COMPLETE.getLocation(), 1.0F, 1.0F, "youarehere.dimension.the_nether", "", 20, 20, 20), new ConfigEnabledCondition(ConfigDefault.DIMENSION));
+		addDimensionPlace("dimension_the_end", new DimensionPlace(new ResourceLocation("the_end"), SoundEvents.UI_TOAST_CHALLENGE_COMPLETE.getLocation(), 1.0F, 1.0F, "youarehere.dimension.the_end", "", 20, 20, 20), new ConfigEnabledCondition(ConfigDefault.DIMENSION));
 
-		addYLevelPlace("y_below_zero", new YLevelPlace(-64, 0, new ResourceLocation("overworld"), SoundEvents.LAVA_POP.getLocation(), 1.0F, 1.0F, "youarehere.dimension.below_zero", "", 20, 20, 20), EnableYLevelPlaces.INSTANCE);
-		addYLevelPlace("above_ceiling", new YLevelPlace(127, 256, new ResourceLocation("the_nether"), SoundEvents.LAVA_POP.getLocation(), 1.0F, 1.0F, "youarehere.dimension.below_zero", "", 20, 20, 20), EnableYLevelPlaces.INSTANCE);
+		addYLevelPlace("y_below_zero", new YLevelPlace(-64, 0, new ResourceLocation("overworld"), SoundEvents.LAVA_POP.getLocation(), 1.0F, 1.0F, "youarehere.dimension.below_zero", "", 20, 20, 20), new ConfigEnabledCondition(ConfigDefault.Y_LEVEL));
+		addYLevelPlace("above_ceiling", new YLevelPlace(127, 256, new ResourceLocation("the_nether"), SoundEvents.LAVA_POP.getLocation(), 1.0F, 1.0F, "youarehere.dimension.below_zero", "", 20, 20, 20), new ConfigEnabledCondition(ConfigDefault.Y_LEVEL));
 	}
 
 	private void registerBiomes() {
@@ -102,7 +101,7 @@ public class ModPlaceProvider extends PlaceProvider {
 
 	private void registerBiomePlace(ResourceKey<Biome> key) {
 		ResourceLocation biomeLocation = key.location();
-		addBiomePlace("biome_" + biomeLocation.getPath(), generateBiomePlace(biomeLocation), EnableBiomePlacesCondition.INSTANCE);
+		addBiomePlace("biome_" + biomeLocation.getPath(), generateBiomePlace(biomeLocation), new ConfigEnabledCondition(ConfigDefault.BIOME));
 	}
 
 	private BiomePlace generateBiomePlace(ResourceLocation biomeLocation) {

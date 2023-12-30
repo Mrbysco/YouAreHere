@@ -1,7 +1,8 @@
 {
   "neoforge:conditions": [
     {
-      "type": "youarehere:enable_biome_places"
+      "type": "youarehere:config_enabled",
+      "config": "biome"
     }
   ],
   "biome": "minecraft:crimson_forest",

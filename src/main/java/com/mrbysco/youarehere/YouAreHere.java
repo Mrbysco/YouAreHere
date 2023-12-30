@@ -10,7 +10,6 @@ import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig.Type;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.neoforged.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
 
 @Mod(YouAreHere.MOD_ID)
@@ -18,8 +17,7 @@ public class YouAreHere {
 	public static final String MOD_ID = "youarehere";
 	public static final Logger LOGGER = LogUtils.getLogger();
 
-	public YouAreHere() {
-		IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
+	public YouAreHere(IEventBus eventBus) {
 		ModLoadingContext.get().registerConfig(Type.COMMON, HereConfig.commonSpec);
 
 		PlaceTypeRegistry.CONDITION_CODECS.register(eventBus);
