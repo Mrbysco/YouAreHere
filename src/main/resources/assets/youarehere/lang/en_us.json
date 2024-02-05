@@ -2,5 +2,6 @@
   "youarehere.dimension.the_end": "The End",
   "youarehere.dimension.the_nether": "The Nether",
   "youarehere.dimension.below_zero": "Below Zero",
-  "youarehere.dimension.above_ceiling": "Above Ceiling"
+  "youarehere.dimension.above_ceiling": "Above Ceiling",
+  "youarehere.networking.show_title.failed": "Failed to show title %s"
 }

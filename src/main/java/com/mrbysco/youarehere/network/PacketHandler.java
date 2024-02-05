@@ -1,24 +1,16 @@
 package com.mrbysco.youarehere.network;
 
 import com.mrbysco.youarehere.YouAreHere;
-import com.mrbysco.youarehere.network.packet.ShowTitleMessage;
-import net.minecraft.resources.ResourceLocation;
-import net.neoforged.neoforge.network.NetworkRegistry;
-import net.neoforged.neoforge.network.simple.SimpleChannel;
+import com.mrbysco.youarehere.network.handler.ClientPayloadHandler;
+import com.mrbysco.youarehere.network.payload.ShowTitlePayload;
+import net.neoforged.neoforge.network.event.RegisterPayloadHandlerEvent;
+import net.neoforged.neoforge.network.registration.IPayloadRegistrar;
 
 public class PacketHandler {
-	private static final String PROTOCOL_VERSION = "1";
-	public static final SimpleChannel CHANNEL = NetworkRegistry.newSimpleChannel(
-			new ResourceLocation(YouAreHere.MOD_ID, "main"),
-			() -> PROTOCOL_VERSION,
-			PROTOCOL_VERSION::equals,
-			PROTOCOL_VERSION::equals
-	);
+	public static void setupPackets(final RegisterPayloadHandlerEvent event) {
+		final IPayloadRegistrar registrar = event.registrar(YouAreHere.MOD_ID);
 
-	private static int id = 0;
-
-	public static void init() {
-//		CHANNEL.registerMessage(id++, UpdatePlacesMessage.class, UpdatePlacesMessage::encode, UpdatePlacesMessage::decode, UpdatePlacesMessage::handle);
-		CHANNEL.registerMessage(id++, ShowTitleMessage.class, ShowTitleMessage::encode, ShowTitleMessage::decode, ShowTitleMessage::handle);
+		registrar.play(ShowTitlePayload.ID, ShowTitlePayload::new, handler -> handler
+				.client(ClientPayloadHandler.getInstance()::handleData));
 	}
 }

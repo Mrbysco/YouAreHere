@@ -1,8 +1,7 @@
 package com.mrbysco.youarehere.handler;
 
 import com.mrbysco.youarehere.YouAreHere;
-import com.mrbysco.youarehere.network.PacketHandler;
-import com.mrbysco.youarehere.network.packet.ShowTitleMessage;
+import com.mrbysco.youarehere.network.payload.ShowTitlePayload;
 import com.mrbysco.youarehere.registry.condition.PlaceType;
 import com.mrbysco.youarehere.resources.places.BasePlace;
 import com.mrbysco.youarehere.util.PlaceUtil;
@@ -15,7 +14,6 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.common.Mod.EventBusSubscriber.Bus;
 import net.neoforged.neoforge.event.TickEvent;
 import net.neoforged.neoforge.event.TickEvent.PlayerTickEvent;
-import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.util.Map;
 
@@ -61,7 +59,7 @@ public class TitleHandler {
 		} else {
 			if (matches) {
 				hereData.putBoolean(idName, true);
-				PacketHandler.CHANNEL.send(PacketDistributor.PLAYER.with(() -> player), new ShowTitleMessage(id, place.getType().name()));
+				player.connection.send(new ShowTitlePayload(id, place.getType().name()));
 			}
 		}
 	}

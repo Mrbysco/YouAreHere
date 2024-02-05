@@ -9,7 +9,6 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig.Type;
-import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import org.slf4j.Logger;
 
 @Mod(YouAreHere.MOD_ID)
@@ -23,12 +22,8 @@ public class YouAreHere {
 		PlaceTypeRegistry.CONDITION_CODECS.register(eventBus);
 
 		eventBus.addListener(PlaceTypeRegistry::onNewRegistry);
-		eventBus.addListener(this::setup);
+		eventBus.addListener(PacketHandler::setupPackets);
 
 		PlaceSounds.SOUND_EVENTS.register(eventBus);
-	}
-
-	private void setup(final FMLCommonSetupEvent event) {
-		PacketHandler.init();
 	}
 }
