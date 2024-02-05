@@ -1,5 +1,6 @@
 package com.mrbysco.youarehere.network.handler;
 
+import com.mrbysco.youarehere.YouAreHere;
 import com.mrbysco.youarehere.network.payload.ShowTitlePayload;
 import com.mrbysco.youarehere.registry.condition.PlaceType;
 import com.mrbysco.youarehere.resources.places.BasePlace;
@@ -21,7 +22,12 @@ public class ClientPayloadHandler {
 
 	public void handleData(final ShowTitlePayload payload, final PlayPayloadContext context) {
 		context.workHandler().submitAsync(() -> {
-					BasePlace place = PlaceUtil.getPlace(PlaceType.getFromName(payload.type()), payload.place());
+					PlaceType type = PlaceType.getFromName(payload.type());
+					BasePlace place = PlaceUtil.getPlace(type, payload.place());
+					if (place == null) {
+						YouAreHere.LOGGER.error("Failed to find place with id: " + payload.place());
+						return;
+					}
 					net.minecraft.client.Minecraft minecraft = net.minecraft.client.Minecraft.getInstance();
 					Player player = minecraft.player;
 					minecraft.gui.clear();

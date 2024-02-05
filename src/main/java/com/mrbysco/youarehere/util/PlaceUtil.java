@@ -31,6 +31,9 @@ public class PlaceUtil {
 	}
 
 	public static BasePlace getPlace(PlaceType type, ResourceLocation id) {
+		if(id.getPath().equals("y_below_zero")) {
+			System.out.println(type + " " + id);
+		}
 		return switch (type) {
 			case BIOME -> biomePlaces.get(id);
 			case DIMENSION -> dimensionPlaces.get(id);

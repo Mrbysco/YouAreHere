@@ -59,7 +59,7 @@ public class TitleHandler {
 		} else {
 			if (matches) {
 				hereData.putBoolean(idName, true);
-				player.connection.send(new ShowTitlePayload(id, place.getType().name()));
+				player.connection.send(new ShowTitlePayload(id, place.getType().getName()));
 			}
 		}
 	}
