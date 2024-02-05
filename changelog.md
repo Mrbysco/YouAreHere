@@ -1,1 +1,1 @@
-* Update NeoForge support (Now requires **20.4.70-beta** or above)
+* Fix packet issue when going below 0 or to the nether with the default places enabled in the config
