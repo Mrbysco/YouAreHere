@@ -1,1 +1,1 @@
-* Fix packet issue when going below 0 or to the nether with the default places enabled in the config
+* Initial update to 1.20.6
