@@ -11,7 +11,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
-import net.neoforged.neoforge.network.handling.PlayPayloadContext;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public class ClientPayloadHandler {
 	private static final ClientPayloadHandler INSTANCE = new ClientPayloadHandler();
@@ -20,9 +20,9 @@ public class ClientPayloadHandler {
 		return INSTANCE;
 	}
 
-	public void handleData(final ShowTitlePayload payload, final PlayPayloadContext context) {
-		context.workHandler().submitAsync(() -> {
-					PlaceType type = PlaceType.getFromName(payload.type());
+	public void handleData(final ShowTitlePayload payload, final IPayloadContext context) {
+		context.enqueueWork(() -> {
+					PlaceType type = PlaceType.getFromName(payload.placeType());
 					BasePlace place = PlaceUtil.getPlace(type, payload.place());
 					if (place == null) {
 						YouAreHere.LOGGER.error("Failed to find place with id: " + payload.place());
@@ -46,7 +46,7 @@ public class ClientPayloadHandler {
 				})
 				.exceptionally(e -> {
 					// Handle exception
-					context.packetHandler().disconnect(Component.translatable("youarehere.networking.show_title.failed", e.getMessage()));
+					context.disconnect(Component.translatable("youarehere.networking.show_title.failed", e.getMessage()));
 					return null;
 				});
 	}

@@ -1,12 +1,12 @@
 package com.mrbysco.youarehere.registry.condition;
 
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.neoforged.neoforge.common.conditions.ICondition;
 
 public record ConfigEnabledCondition(ConfigDefault config) implements ICondition {
 
-	public static Codec<ConfigEnabledCondition> CODEC = RecordCodecBuilder.create(
+	public static MapCodec<ConfigEnabledCondition> CODEC = RecordCodecBuilder.mapCodec(
 			builder -> builder
 					.group(
 							ConfigDefault.CODEC.fieldOf("config").forGetter(ConfigEnabledCondition::config))
@@ -18,7 +18,7 @@ public record ConfigEnabledCondition(ConfigDefault config) implements ICondition
 	}
 
 	@Override
-	public Codec<? extends ICondition> codec() {
+	public MapCodec<? extends ICondition> codec() {
 		return CODEC;
 	}
 

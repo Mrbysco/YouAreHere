@@ -6,6 +6,7 @@ import com.mrbysco.youarehere.network.PacketHandler;
 import com.mrbysco.youarehere.registry.PlaceSounds;
 import com.mrbysco.youarehere.registry.PlaceTypeRegistry;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig.Type;
@@ -16,8 +17,8 @@ public class YouAreHere {
 	public static final String MOD_ID = "youarehere";
 	public static final Logger LOGGER = LogUtils.getLogger();
 
-	public YouAreHere(IEventBus eventBus) {
-		ModLoadingContext.get().registerConfig(Type.COMMON, HereConfig.commonSpec);
+	public YouAreHere(IEventBus eventBus, ModContainer container) {
+		container.registerConfig(Type.COMMON, HereConfig.commonSpec);
 
 		PlaceTypeRegistry.CONDITION_CODECS.register(eventBus);
 

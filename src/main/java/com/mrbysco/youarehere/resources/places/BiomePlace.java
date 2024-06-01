@@ -11,11 +11,17 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemConditions;
 import net.neoforged.neoforge.common.conditions.ConditionalOps;
 import net.neoforged.neoforge.common.conditions.WithConditions;
+import net.neoforged.neoforge.common.loot.IGlobalLootModifier;
+import net.neoforged.neoforge.registries.NeoForgeRegistries;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Function;
 
 public class BiomePlace extends BasePlace {
 	public static final ResourceKey<Registry<BiomePlace>> REGISTRY_KEY = ResourceKey.createRegistryKey(
@@ -25,19 +31,20 @@ public class BiomePlace extends BasePlace {
 					apply -> apply.group(
 									ResourceLocation.CODEC.fieldOf("biome").forGetter(BiomePlace::biomeLocation),
 									ResourceLocation.CODEC.fieldOf("sound").forGetter(BiomePlace::soundLocation),
-									ExtraCodecs.strictOptionalField(Codec.FLOAT, "volume", 1.0F).forGetter(BiomePlace::getVolume),
-									ExtraCodecs.strictOptionalField(Codec.FLOAT, "pitch", 1.0F).forGetter(BiomePlace::getPitch),
+									Codec.FLOAT.optionalFieldOf("volume", 1.0F).forGetter(BiomePlace::getVolume),
+									Codec.FLOAT.optionalFieldOf("pitch", 1.0F).forGetter(BiomePlace::getPitch),
 									Codec.STRING.fieldOf("title").forGetter(BiomePlace::title),
-									ExtraCodecs.strictOptionalField(Codec.STRING, "subtitle", "").forGetter(BiomePlace::subtitle),
-									ExtraCodecs.strictOptionalField(Codec.INT, "duration", 20).forGetter(BiomePlace::duration),
-									ExtraCodecs.strictOptionalField(Codec.INT, "fadeInDuration", 20).forGetter(BiomePlace::fadeInDuration),
-									ExtraCodecs.strictOptionalField(Codec.INT, "fadeOutDuration", 20).forGetter(BiomePlace::fadeOutDuration)
+									Codec.STRING.optionalFieldOf("subtitle", "").forGetter(BiomePlace::subtitle),
+									Codec.INT.optionalFieldOf("duration", 20).forGetter(BiomePlace::duration),
+									Codec.INT.optionalFieldOf("fadeInDuration", 20).forGetter(BiomePlace::fadeInDuration),
+									Codec.INT.optionalFieldOf("fadeOutDuration", 20).forGetter(BiomePlace::fadeOutDuration)
 							)
 							.apply(apply, BiomePlace::new)
 			)
 	);
 
 	public static final Codec<Optional<WithConditions<BiomePlace>>> CONDITIONAL_CODEC = ConditionalOps.createConditionalCodecWithConditions(DIRECT_CODEC);
+
 
 	private final ResourceLocation biomeLocation;
 

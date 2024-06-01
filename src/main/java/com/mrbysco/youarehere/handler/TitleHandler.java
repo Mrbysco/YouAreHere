@@ -10,19 +10,17 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.Mod;
-import net.neoforged.fml.common.Mod.EventBusSubscriber.Bus;
-import net.neoforged.neoforge.event.TickEvent;
-import net.neoforged.neoforge.event.TickEvent.PlayerTickEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 
 import java.util.Map;
 
-@Mod.EventBusSubscriber(bus = Bus.FORGE, modid = YouAreHere.MOD_ID, value = Dist.CLIENT)
+@EventBusSubscriber(bus = EventBusSubscriber.Bus.GAME, modid = YouAreHere.MOD_ID, value = Dist.CLIENT)
 public class TitleHandler {
 	@SubscribeEvent
-	public static void onPlayerTick(PlayerTickEvent event) {
-		if (event.side.isServer() && event.phase == TickEvent.Phase.START) {
-			ServerPlayer player = (ServerPlayer) event.player;
+	public static void onPlayerTick(PlayerTickEvent.Pre event) {
+
+		if (event.getEntity() instanceof ServerPlayer player) {
 			if (player.level().getGameTime() % 40 == 0) {
 				CompoundTag persistentData = player.getPersistentData();
 				CompoundTag hereData = persistentData.contains("YouAreHere") ? persistentData.getCompound("YouAreHere") : new CompoundTag();

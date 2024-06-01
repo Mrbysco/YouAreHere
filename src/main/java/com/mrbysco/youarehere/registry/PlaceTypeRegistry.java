@@ -1,6 +1,6 @@
 package com.mrbysco.youarehere.registry;
 
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mrbysco.youarehere.YouAreHere;
 import com.mrbysco.youarehere.registry.condition.ConfigEnabledCondition;
 import com.mrbysco.youarehere.resources.places.BiomePlace;
@@ -23,6 +23,6 @@ public class PlaceTypeRegistry {
 		YouAreHere.LOGGER.info("Registered place type registries");
 	}
 
-	public static final DeferredRegister<Codec<? extends ICondition>> CONDITION_CODECS = DeferredRegister.create(NeoForgeRegistries.Keys.CONDITION_CODECS, YouAreHere.MOD_ID);
-	public static final DeferredHolder<Codec<? extends ICondition>, Codec<ConfigEnabledCondition>> CONFIG_ENABLED = CONDITION_CODECS.register("config_enabled", () -> ConfigEnabledCondition.CODEC);
+	public static final DeferredRegister<MapCodec<? extends ICondition>> CONDITION_CODECS = DeferredRegister.create(NeoForgeRegistries.Keys.CONDITION_CODECS, YouAreHere.MOD_ID);
+	public static final DeferredHolder<MapCodec<? extends ICondition>, MapCodec<ConfigEnabledCondition>> CONFIG_ENABLED = CONDITION_CODECS.register("config_enabled", () -> ConfigEnabledCondition.CODEC);
 }

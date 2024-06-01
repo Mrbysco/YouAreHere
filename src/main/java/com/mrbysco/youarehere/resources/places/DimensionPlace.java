@@ -23,13 +23,13 @@ public class DimensionPlace extends BasePlace {
 					apply -> apply.group(
 									ResourceLocation.CODEC.fieldOf("dimension").forGetter(DimensionPlace::dimensionLocation),
 									ResourceLocation.CODEC.fieldOf("sound").forGetter(BasePlace::soundLocation),
-									ExtraCodecs.strictOptionalField(Codec.FLOAT, "volume", 1.0F).forGetter(BasePlace::getVolume),
-									ExtraCodecs.strictOptionalField(Codec.FLOAT, "pitch", 1.0F).forGetter(BasePlace::getPitch),
+									Codec.FLOAT.optionalFieldOf("volume", 1.0F).forGetter(BasePlace::getVolume),
+									Codec.FLOAT.optionalFieldOf("pitch", 1.0F).forGetter(BasePlace::getPitch),
 									Codec.STRING.fieldOf("title").forGetter(BasePlace::title),
-									ExtraCodecs.strictOptionalField(Codec.STRING, "subtitle", "").forGetter(BasePlace::subtitle),
-									ExtraCodecs.strictOptionalField(Codec.INT, "duration", 20).forGetter(BasePlace::duration),
-									ExtraCodecs.strictOptionalField(Codec.INT, "fadeInDuration", 20).forGetter(BasePlace::fadeInDuration),
-									ExtraCodecs.strictOptionalField(Codec.INT, "fadeOutDuration", 20).forGetter(BasePlace::fadeOutDuration)
+									Codec.STRING.optionalFieldOf("subtitle", "").forGetter(BasePlace::subtitle),
+									Codec.INT.optionalFieldOf("duration", 20).forGetter(BasePlace::duration),
+									Codec.INT.optionalFieldOf("fadeInDuration", 20).forGetter(BasePlace::fadeInDuration),
+									Codec.INT.optionalFieldOf("fadeOutDuration", 20).forGetter(BasePlace::fadeOutDuration)
 							)
 							.apply(apply, DimensionPlace::new)
 			)
