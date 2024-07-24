@@ -11,21 +11,15 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
-import net.minecraft.world.level.storage.loot.predicates.LootItemConditions;
 import net.neoforged.neoforge.common.conditions.ConditionalOps;
 import net.neoforged.neoforge.common.conditions.WithConditions;
-import net.neoforged.neoforge.common.loot.IGlobalLootModifier;
-import net.neoforged.neoforge.registries.NeoForgeRegistries;
 
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.function.Function;
 
 public class BiomePlace extends BasePlace {
 	public static final ResourceKey<Registry<BiomePlace>> REGISTRY_KEY = ResourceKey.createRegistryKey(
-			new ResourceLocation(YouAreHere.MOD_ID, "biome"));
+			YouAreHere.modLoc("biome"));
 	public static final Codec<BiomePlace> DIRECT_CODEC = ExtraCodecs.catchDecoderException(
 			RecordCodecBuilder.create(
 					apply -> apply.group(

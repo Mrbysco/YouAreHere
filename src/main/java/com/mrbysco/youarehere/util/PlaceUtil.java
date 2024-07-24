@@ -48,16 +48,16 @@ public class PlaceUtil {
 		biomePlaces.clear();
 		final Registry<BiomePlace> biomePlaceRegistry = registryAccess.registryOrThrow(BiomePlace.REGISTRY_KEY);
 		biomePlaceRegistry.entrySet().forEach((key) -> biomePlaces.put(key.getKey().location(), key.getValue()));
-		YouAreHere.LOGGER.info("Loaded Biome Places: " + biomePlaces.size() + " places");
+		YouAreHere.LOGGER.info("Loaded Biome Places: {} places", biomePlaces.size());
 
 		dimensionPlaces.clear();
 		final Registry<DimensionPlace> dimensionPlaceRegistry = registryAccess.registryOrThrow(DimensionPlace.REGISTRY_KEY);
 		dimensionPlaceRegistry.entrySet().forEach((key) -> dimensionPlaces.put(key.getKey().location(), key.getValue()));
-		YouAreHere.LOGGER.info("Loaded Dimension Places: " + dimensionPlaces.size() + " places");
+		YouAreHere.LOGGER.info("Loaded Dimension Places: {} places", dimensionPlaces.size());
 
 		yLevelPlaces.clear();
 		final Registry<YLevelPlace> yLevellaceRegistry = registryAccess.registryOrThrow(YLevelPlace.REGISTRY_KEY);
 		yLevellaceRegistry.entrySet().forEach((key) -> yLevelPlaces.put(key.getKey().location(), key.getValue()));
-		YouAreHere.LOGGER.info("Loaded Y Level Places: " + yLevelPlaces.size() + " places");
+		YouAreHere.LOGGER.info("Loaded Y Level Places: {} places", yLevelPlaces.size());
 	}
 }

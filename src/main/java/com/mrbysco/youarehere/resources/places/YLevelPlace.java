@@ -18,7 +18,7 @@ import java.util.Optional;
 
 public class YLevelPlace extends BasePlace {
 	public static final ResourceKey<Registry<YLevelPlace>> REGISTRY_KEY = ResourceKey.createRegistryKey(
-			new ResourceLocation(YouAreHere.MOD_ID, "y_level"));
+			YouAreHere.modLoc("y_level"));
 	public static final Codec<YLevelPlace> DIRECT_CODEC = ExtraCodecs.catchDecoderException(
 			RecordCodecBuilder.create(
 					apply -> apply.group(

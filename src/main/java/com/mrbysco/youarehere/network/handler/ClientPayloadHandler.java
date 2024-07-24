@@ -25,7 +25,7 @@ public class ClientPayloadHandler {
 					PlaceType type = PlaceType.getFromName(payload.placeType());
 					BasePlace place = PlaceUtil.getPlace(type, payload.place());
 					if (place == null) {
-						YouAreHere.LOGGER.error("Failed to find place with id: " + payload.place());
+						YouAreHere.LOGGER.error("Failed to find place with id: {}", payload.place());
 						return;
 					}
 					net.minecraft.client.Minecraft minecraft = net.minecraft.client.Minecraft.getInstance();

@@ -26,11 +26,11 @@ public class ModPlaceProvider extends PlaceProvider {
 	protected void start() {
 		registerBiomes();
 
-		addDimensionPlace("dimension_the_nether", new DimensionPlace(new ResourceLocation("the_nether"), SoundEvents.UI_TOAST_CHALLENGE_COMPLETE.getLocation(), 1.0F, 1.0F, "youarehere.dimension.the_nether", "", 20, 20, 20), new ConfigEnabledCondition(ConfigDefault.DIMENSION));
-		addDimensionPlace("dimension_the_end", new DimensionPlace(new ResourceLocation("the_end"), SoundEvents.UI_TOAST_CHALLENGE_COMPLETE.getLocation(), 1.0F, 1.0F, "youarehere.dimension.the_end", "", 20, 20, 20), new ConfigEnabledCondition(ConfigDefault.DIMENSION));
+		addDimensionPlace("dimension_the_nether", new DimensionPlace(ResourceLocation.withDefaultNamespace("the_nether"), SoundEvents.UI_TOAST_CHALLENGE_COMPLETE.getLocation(), 1.0F, 1.0F, "youarehere.dimension.the_nether", "", 20, 20, 20), new ConfigEnabledCondition(ConfigDefault.DIMENSION));
+		addDimensionPlace("dimension_the_end", new DimensionPlace(ResourceLocation.withDefaultNamespace("the_end"), SoundEvents.UI_TOAST_CHALLENGE_COMPLETE.getLocation(), 1.0F, 1.0F, "youarehere.dimension.the_end", "", 20, 20, 20), new ConfigEnabledCondition(ConfigDefault.DIMENSION));
 
-		addYLevelPlace("y_below_zero", new YLevelPlace(-64, 0, new ResourceLocation("overworld"), SoundEvents.LAVA_POP.getLocation(), 1.0F, 1.0F, "youarehere.dimension.below_zero", "", 20, 20, 20), new ConfigEnabledCondition(ConfigDefault.Y_LEVEL));
-		addYLevelPlace("above_ceiling", new YLevelPlace(127, 256, new ResourceLocation("the_nether"), SoundEvents.LAVA_POP.getLocation(), 1.0F, 1.0F, "youarehere.dimension.below_zero", "", 20, 20, 20), new ConfigEnabledCondition(ConfigDefault.Y_LEVEL));
+		addYLevelPlace("y_below_zero", new YLevelPlace(-64, 0, ResourceLocation.withDefaultNamespace("overworld"), SoundEvents.LAVA_POP.getLocation(), 1.0F, 1.0F, "youarehere.dimension.below_zero", "", 20, 20, 20), new ConfigEnabledCondition(ConfigDefault.Y_LEVEL));
+		addYLevelPlace("above_ceiling", new YLevelPlace(127, 256, ResourceLocation.withDefaultNamespace("the_nether"), SoundEvents.LAVA_POP.getLocation(), 1.0F, 1.0F, "youarehere.dimension.below_zero", "", 20, 20, 20), new ConfigEnabledCondition(ConfigDefault.Y_LEVEL));
 	}
 
 	private void registerBiomes() {

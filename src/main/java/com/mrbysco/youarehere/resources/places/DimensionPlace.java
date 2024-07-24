@@ -17,7 +17,7 @@ import java.util.Optional;
 
 public class DimensionPlace extends BasePlace {
 	public static final ResourceKey<Registry<DimensionPlace>> REGISTRY_KEY = ResourceKey.createRegistryKey(
-			new ResourceLocation(YouAreHere.MOD_ID, "dimension"));
+			YouAreHere.modLoc("dimension"));
 	public static final Codec<DimensionPlace> DIRECT_CODEC = ExtraCodecs.catchDecoderException(
 			RecordCodecBuilder.create(
 					apply -> apply.group(

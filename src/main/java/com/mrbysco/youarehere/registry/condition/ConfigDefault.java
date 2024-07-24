@@ -15,7 +15,7 @@ public enum ConfigDefault implements StringRepresentable {
 	private final String name;
 	private final BooleanSupplier configSupplier;
 
-	private ConfigDefault(String name, BooleanSupplier supplier) {
+	ConfigDefault(String name, BooleanSupplier supplier) {
 		this.name = name;
 		this.configSupplier = supplier;
 	}

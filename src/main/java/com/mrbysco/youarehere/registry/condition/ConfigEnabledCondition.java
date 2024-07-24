@@ -6,7 +6,7 @@ import net.neoforged.neoforge.common.conditions.ICondition;
 
 public record ConfigEnabledCondition(ConfigDefault config) implements ICondition {
 
-	public static MapCodec<ConfigEnabledCondition> CODEC = RecordCodecBuilder.mapCodec(
+	public static final MapCodec<ConfigEnabledCondition> CODEC = RecordCodecBuilder.mapCodec(
 			builder -> builder
 					.group(
 							ConfigDefault.CODEC.fieldOf("config").forGetter(ConfigEnabledCondition::config))

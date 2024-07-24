@@ -10,7 +10,7 @@ public record ShowTitlePayload(ResourceLocation place, String placeType) impleme
 	public static final StreamCodec<FriendlyByteBuf, ShowTitlePayload> CODEC = CustomPacketPayload.codec(
 			ShowTitlePayload::write,
 			ShowTitlePayload::new);
-	public static final Type<ShowTitlePayload> ID = CustomPacketPayload.createType(new ResourceLocation(YouAreHere.MOD_ID, "show_title").toString());
+	public static final Type<ShowTitlePayload> ID = new Type<>(YouAreHere.modLoc("show_title"));
 
 
 	public ShowTitlePayload(final FriendlyByteBuf buffer) {

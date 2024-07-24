@@ -1,0 +1,16 @@
+{
+  "youarehere.configuration.enableBiomePlaces": "Enable Biome Places",
+  "youarehere.configuration.enableBiomePlaces.tooltip": "Dictates whether or not the vanilla biome places are enabled",
+  "youarehere.configuration.enableDimensionPlaces": "Enable Dimension Places",
+  "youarehere.configuration.enableDimensionPlaces.tooltip": "Dictates whether or not the vanilla dimension places are enabled (excluding the Overworld)",
+  "youarehere.configuration.enableYPlaces": "Enable Y Places",
+  "youarehere.configuration.enableYPlaces.tooltip": "Dictates whether or not the default y place for going below 0 is enabled",
+  "youarehere.configuration.general": "General",
+  "youarehere.configuration.general.tooltip": "General settings",
+  "youarehere.configuration.title": "You Are Here Config",
+  "youarehere.dimension.above_ceiling": "Above Ceiling",
+  "youarehere.dimension.below_zero": "Below Zero",
+  "youarehere.dimension.the_end": "The End",
+  "youarehere.dimension.the_nether": "The Nether",
+  "youarehere.networking.show_title.failed": "Failed to show title %s"
+}

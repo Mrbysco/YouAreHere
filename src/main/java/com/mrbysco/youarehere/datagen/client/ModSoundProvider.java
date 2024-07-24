@@ -1,4 +1,4 @@
-package com.mrbysco.youarehere.datagen.server;
+package com.mrbysco.youarehere.datagen.client;
 
 import com.mrbysco.youarehere.YouAreHere;
 import com.mrbysco.youarehere.registry.PlaceSounds;
@@ -47,6 +47,6 @@ public class ModSoundProvider extends SoundDefinitionsProvider {
 	}
 
 	public ResourceLocation modLoc(String name) {
-		return new ResourceLocation(YouAreHere.MOD_ID, name);
+		return YouAreHere.modLoc(name);
 	}
 }

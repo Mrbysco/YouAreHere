@@ -7,7 +7,7 @@ A mod that shows a title displaying where you are when you enter an area
 
 ## License ##
 * You Are Here is licensed under the MIT License
-  - (c) 2022 Mrbysco
+  - (c) 2024 Mrbysco
   - [![License](https://img.shields.io/badge/License-MIT-red.svg?style=flat)](http://opensource.org/licenses/MIT)
 
 ## Downloads ##

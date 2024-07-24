@@ -1,7 +1,8 @@
 package com.mrbysco.youarehere.datagen;
 
+import com.mrbysco.youarehere.datagen.client.ModLanguageProvider;
+import com.mrbysco.youarehere.datagen.client.ModSoundProvider;
 import com.mrbysco.youarehere.datagen.server.ModPlaceProvider;
-import com.mrbysco.youarehere.datagen.server.ModSoundProvider;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -18,8 +19,11 @@ public class PlaceDatagen {
 		ExistingFileHelper helper = event.getExistingFileHelper();
 
 		if (event.includeClient()) {
-			generator.addProvider(event.includeClient(), new ModPlaceProvider(packOutput, event.getLookupProvider()));
+			generator.addProvider(event.includeClient(), new ModLanguageProvider(packOutput));
 			generator.addProvider(event.includeClient(), new ModSoundProvider(packOutput, helper));
+		}
+		if (event.includeServer()) {
+			generator.addProvider(event.includeClient(), new ModPlaceProvider(packOutput, event.getLookupProvider()));
 		}
 	}
 }
