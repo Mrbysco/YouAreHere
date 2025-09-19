@@ -16,7 +16,7 @@ import net.neoforged.neoforge.event.OnDatapackSyncEvent;
 import java.util.HashMap;
 import java.util.Map;
 
-@EventBusSubscriber(modid = YouAreHere.MOD_ID)
+@EventBusSubscriber
 public class PlaceUtil {
 	private static final Map<ResourceLocation, BiomePlace> biomePlaces = new HashMap<>();
 	private static final Map<ResourceLocation, DimensionPlace> dimensionPlaces = new HashMap<>();
@@ -31,7 +31,7 @@ public class PlaceUtil {
 	}
 
 	public static BasePlace getPlace(PlaceType type, ResourceLocation id) {
-		if(id.getPath().equals("y_below_zero")) {
+		if (id.getPath().equals("y_below_zero")) {
 			System.out.println(type + " " + id);
 		}
 		return switch (type) {

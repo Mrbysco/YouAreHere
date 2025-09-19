@@ -1,6 +1,5 @@
 package com.mrbysco.youarehere.handler;
 
-import com.mrbysco.youarehere.YouAreHere;
 import com.mrbysco.youarehere.network.payload.ShowTitlePayload;
 import com.mrbysco.youarehere.registry.condition.PlaceType;
 import com.mrbysco.youarehere.resources.places.BasePlace;
@@ -15,7 +14,7 @@ import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 
 import java.util.Map;
 
-@EventBusSubscriber(bus = EventBusSubscriber.Bus.GAME, modid = YouAreHere.MOD_ID, value = Dist.CLIENT)
+@EventBusSubscriber(value = Dist.CLIENT)
 public class TitleHandler {
 	@SubscribeEvent
 	public static void onPlayerTick(PlayerTickEvent.Pre event) {

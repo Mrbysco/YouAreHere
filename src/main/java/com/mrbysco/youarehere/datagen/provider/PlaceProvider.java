@@ -41,7 +41,7 @@ public abstract class PlaceProvider implements DataProvider {
 	}
 
 	public CompletableFuture<?> run(CachedOutput cache, HolderLookup.Provider registries) {
-		start();
+		start(registries);
 
 		ImmutableList.Builder<CompletableFuture<?>> futuresBuilder = new ImmutableList.Builder<>();
 
@@ -72,7 +72,7 @@ public abstract class PlaceProvider implements DataProvider {
 		return CompletableFuture.allOf(futuresBuilder.build().toArray(CompletableFuture[]::new));
 	}
 
-	protected abstract void start();
+	protected abstract void start(HolderLookup.Provider registries);
 
 	public <T extends BiomePlace> void addBiomePlace(String placeID, T instance, List<ICondition> conditions) {
 		this.toSerializeBiome.put(placeID, new WithConditions<>(conditions, instance));

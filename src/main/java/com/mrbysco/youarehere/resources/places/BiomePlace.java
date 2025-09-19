@@ -43,7 +43,7 @@ public class BiomePlace extends BasePlace {
 	private final ResourceLocation biomeLocation;
 
 	public BiomePlace(ResourceLocation biomeLocation, ResourceLocation soundLocation, float volume, float pitch, String title,
-					  String subtitle, int duration, int fadeInDuration, int fadeOutDuration) {
+	                  String subtitle, int duration, int fadeInDuration, int fadeOutDuration) {
 		super(soundLocation, volume, pitch, title, subtitle, duration, fadeInDuration, fadeOutDuration);
 		this.biomeLocation = biomeLocation;
 	}
