@@ -30,7 +30,7 @@ public class ClientPayloadHandler {
 					}
 					net.minecraft.client.Minecraft minecraft = net.minecraft.client.Minecraft.getInstance();
 					Player player = minecraft.player;
-					minecraft.gui.clear();
+					minecraft.gui.clearTitles();
 					minecraft.gui.resetTitleTimes();
 					minecraft.gui.setTimes(place.fadeInDuration(), place.duration(), place.fadeOutDuration());
 					minecraft.gui.setTitle(Component.translatable(place.title()).withStyle(ChatFormatting.UNDERLINE));
@@ -38,7 +38,7 @@ public class ClientPayloadHandler {
 						minecraft.gui.setSubtitle(Component.translatable(place.subtitle()));
 
 					if (place.soundLocation() != null) {
-						SoundEvent sound = BuiltInRegistries.SOUND_EVENT.get(place.soundLocation());
+						SoundEvent sound = BuiltInRegistries.SOUND_EVENT.getValue(place.soundLocation());
 						if (sound != null) {
 							player.level().playLocalSound(player.getX(), player.getY(), player.getZ(), sound, SoundSource.AMBIENT, place.getVolume(), place.getPitch(), false);
 						}

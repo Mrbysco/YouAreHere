@@ -4,12 +4,11 @@ import com.mrbysco.youarehere.YouAreHere;
 import com.mrbysco.youarehere.registry.PlaceSounds;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.common.data.SoundDefinitionsProvider;
 
 public class ModSoundProvider extends SoundDefinitionsProvider {
-	public ModSoundProvider(PackOutput packOutput, ExistingFileHelper helper) {
-		super(packOutput, YouAreHere.MOD_ID, helper);
+	public ModSoundProvider(PackOutput packOutput) {
+		super(packOutput, YouAreHere.MOD_ID);
 	}
 
 	@Override
