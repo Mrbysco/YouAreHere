@@ -23,7 +23,7 @@ public class TitleHandler {
 		if (event.getEntity() instanceof ServerPlayer player) {
 			if (player.level().getGameTime() % 40 == 0) {
 				CompoundTag persistentData = player.getPersistentData();
-				CompoundTag hereData = persistentData.contains("YouAreHere") ? persistentData.getCompound("YouAreHere") : new CompoundTag();
+				CompoundTag hereData = persistentData.contains("YouAreHere") ? persistentData.getCompoundOrEmpty("YouAreHere") : new CompoundTag();
 				if (!PlaceUtil.getPlaces(PlaceType.BIOME).isEmpty()) {
 					for (Map.Entry<ResourceLocation, ? extends BasePlace> placeEntry : PlaceUtil.getPlaces(PlaceType.BIOME).entrySet()) {
 						checkPlace(player, placeEntry, hereData);
@@ -48,7 +48,7 @@ public class TitleHandler {
 		final ResourceLocation id = entry.getKey();
 		String idName = entry.toString();
 		final BasePlace place = entry.getValue();
-		boolean cachedValue = hereData.getBoolean(idName);
+		boolean cachedValue = hereData.getBooleanOr(idName, false);
 		boolean matches = place.matches(player);
 		if (cachedValue) {
 			if (!matches) {
