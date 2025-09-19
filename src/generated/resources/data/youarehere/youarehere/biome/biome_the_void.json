@@ -1,0 +1,11 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "youarehere:config_enabled",
+      "config": "biome"
+    }
+  ],
+  "biome": "minecraft:the_void",
+  "sound": "minecraft:ui.toast.in",
+  "title": "biome.minecraft.the_void"
+}

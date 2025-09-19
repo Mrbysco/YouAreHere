@@ -54,6 +54,7 @@ public class ModPlaceProvider extends PlaceProvider {
 	}
 
 	private void registerBiomes() {
+		registerBiomePlace(Biomes.THE_VOID);
 		registerBiomePlace(Biomes.PLAINS);
 		registerBiomePlace(Biomes.SUNFLOWER_PLAINS);
 		registerBiomePlace(Biomes.SNOWY_PLAINS);
@@ -65,6 +66,7 @@ public class ModPlaceProvider extends PlaceProvider {
 		registerBiomePlace(Biomes.FLOWER_FOREST);
 		registerBiomePlace(Biomes.BIRCH_FOREST);
 		registerBiomePlace(Biomes.DARK_FOREST);
+		registerBiomePlace(Biomes.PALE_GARDEN);
 		registerBiomePlace(Biomes.OLD_GROWTH_BIRCH_FOREST);
 		registerBiomePlace(Biomes.OLD_GROWTH_PINE_TAIGA);
 		registerBiomePlace(Biomes.OLD_GROWTH_SPRUCE_TAIGA);

@@ -1,0 +1,11 @@
+{
+  "neoforge:conditions": [
+    {
+      "type": "youarehere:config_enabled",
+      "config": "biome"
+    }
+  ],
+  "biome": "minecraft:pale_garden",
+  "sound": "minecraft:ui.toast.in",
+  "title": "biome.minecraft.pale_garden"
+}

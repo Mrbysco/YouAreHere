@@ -1,4 +1,4 @@
-// 1.21.4	2025-09-19T23:17:42.0180564	Places: youarehere
+// 1.21.4	2025-09-19T23:19:09.6584724	Places: youarehere
 4781c6ca3d2832a2dd27943d029f796537e078c8 data/youarehere/youarehere/biome/biome_badlands.json
 8b94a74c205c0d511b0ab8631ad85d70283b94b3 data/youarehere/youarehere/biome/biome_bamboo_jungle.json
 5642a6596b49858378c1356b80511515a6f14134 data/youarehere/youarehere/biome/biome_basalt_deltas.json
@@ -38,6 +38,7 @@ cf5d2ed4be697cdddc3ec86d265e9bde789151c6 data/youarehere/youarehere/biome/biome_
 6835b3894a887f112de1d9754f6a5a48e74258f4 data/youarehere/youarehere/biome/biome_old_growth_birch_forest.json
 ed2a5d5556b1060cad5f74845e939aedd4f1ae85 data/youarehere/youarehere/biome/biome_old_growth_pine_taiga.json
 00a6ec55895d86f58cea417c341dfd71c5c0c59d data/youarehere/youarehere/biome/biome_old_growth_spruce_taiga.json
+c3d499165aeb0f024ddfb6f232d053e6ff258793 data/youarehere/youarehere/biome/biome_pale_garden.json
 fc7b916e34d1cbf64fd22df16a9ba3916616fec8 data/youarehere/youarehere/biome/biome_plains.json
 221ac4b07b2863d3da26191c083b5e087a54d69f data/youarehere/youarehere/biome/biome_river.json
 22d48e67bd7430c1586cab659abeb07969f301fd data/youarehere/youarehere/biome/biome_savanna.json
@@ -55,6 +56,7 @@ fe2bd8b43abed2d459e851f4659dd3d61cd34c55 data/youarehere/youarehere/biome/biome_
 b8e895ba7cb2509b2bd4a237adae00e23051d014 data/youarehere/youarehere/biome/biome_swamp.json
 855dd5f288903285bc18ad3cf864374d9689643e data/youarehere/youarehere/biome/biome_taiga.json
 c4858a0370edb4cdfd0945b49851870f803b6be9 data/youarehere/youarehere/biome/biome_the_end.json
+f08e4376f523427972f6c806ba36b6f19f1cd98f data/youarehere/youarehere/biome/biome_the_void.json
 86718a5c2cd8513c3183337de73c8d4567c4bb4f data/youarehere/youarehere/biome/biome_warm_ocean.json
 b50a3495df7115bb1b0ce2d18adadc694f0e9d7d data/youarehere/youarehere/biome/biome_warped_forest.json
 1a42aaf6351845c92a08d8a04ac649e60ed04cfc data/youarehere/youarehere/biome/biome_windswept_forest.json
