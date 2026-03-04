@@ -1,13 +1,13 @@
 package com.mrbysco.youarehere.resources.places;
 
 import com.mrbysco.youarehere.registry.condition.PlaceType;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Player;
 
 import java.util.Objects;
 
 public abstract class BasePlace {
-	protected final ResourceLocation soundLocation;
+	protected final Identifier soundLocation;
 	protected final float volume, pitch;
 	protected final String title;
 	protected final String subtitle;
@@ -15,7 +15,7 @@ public abstract class BasePlace {
 	protected final int fadeInDuration;
 	protected final int fadeOutDuration;
 
-	public BasePlace(ResourceLocation soundLocation, float volume, float pitch, String title,
+	public BasePlace(Identifier soundLocation, float volume, float pitch, String title,
 	                 String subtitle, int duration, int fadeInDuration, int fadeOutDuration) {
 		this.soundLocation = soundLocation;
 		this.volume = volume;
@@ -27,7 +27,7 @@ public abstract class BasePlace {
 		this.fadeOutDuration = fadeOutDuration;
 	}
 
-	public ResourceLocation soundLocation() {
+	public Identifier soundLocation() {
 		return soundLocation;
 	}
 

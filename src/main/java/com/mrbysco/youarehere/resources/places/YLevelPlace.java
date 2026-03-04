@@ -5,8 +5,8 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.mrbysco.youarehere.YouAreHere;
 import com.mrbysco.youarehere.registry.condition.PlaceType;
 import net.minecraft.core.Registry;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.common.conditions.ConditionalOps;
@@ -24,8 +24,8 @@ public class YLevelPlace extends BasePlace {
 					apply -> apply.group(
 									Codec.INT.fieldOf("minY").forGetter(YLevelPlace::minY),
 									Codec.INT.fieldOf("maxY").forGetter(YLevelPlace::maxY),
-									ResourceLocation.CODEC.fieldOf("dimension").forGetter(YLevelPlace::dimensionLocation),
-									ResourceLocation.CODEC.fieldOf("sound").forGetter(BasePlace::soundLocation),
+									Identifier.CODEC.fieldOf("dimension").forGetter(YLevelPlace::dimensionLocation),
+									Identifier.CODEC.fieldOf("sound").forGetter(BasePlace::soundLocation),
 									Codec.FLOAT.optionalFieldOf("volume", 1.0F).forGetter(BasePlace::getVolume),
 									Codec.FLOAT.optionalFieldOf("pitch", 1.0F).forGetter(BasePlace::getPitch),
 									Codec.STRING.fieldOf("title").forGetter(BasePlace::title),
@@ -42,9 +42,9 @@ public class YLevelPlace extends BasePlace {
 	private final int minY;
 	private final int maxY;
 	@Nullable
-	private final ResourceLocation dimensionLocation;
+	private final Identifier dimensionLocation;
 
-	public YLevelPlace(int minY, int maxY, ResourceLocation dimensionLocation, ResourceLocation soundLocation, float volume, float pitch, String title,
+	public YLevelPlace(int minY, int maxY, Identifier dimensionLocation, Identifier soundLocation, float volume, float pitch, String title,
 	                   String subtitle, int duration, int fadeInDuration, int fadeOutDuration) {
 		super(soundLocation, volume, pitch, title, subtitle, duration, fadeInDuration, fadeOutDuration);
 		this.minY = minY;
@@ -60,7 +60,7 @@ public class YLevelPlace extends BasePlace {
 		return maxY;
 	}
 
-	public ResourceLocation dimensionLocation() {
+	public Identifier dimensionLocation() {
 		return dimensionLocation;
 	}
 
@@ -86,7 +86,7 @@ public class YLevelPlace extends BasePlace {
 
 	@Override
 	public boolean matches(Player player) {
-		boolean dimensionMatches = dimensionLocation() == null || player.level().dimension().location().equals(dimensionLocation());
+		boolean dimensionMatches = dimensionLocation() == null || player.level().dimension().identifier().equals(dimensionLocation());
 		return player.getY() >= this.minY() && player.getY() <= this.maxY() && dimensionMatches;
 	}
 

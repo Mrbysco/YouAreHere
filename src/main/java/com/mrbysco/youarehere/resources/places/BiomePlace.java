@@ -6,8 +6,8 @@ import com.mrbysco.youarehere.YouAreHere;
 import com.mrbysco.youarehere.registry.condition.PlaceType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.biome.Biome;
@@ -23,8 +23,8 @@ public class BiomePlace extends BasePlace {
 	public static final Codec<BiomePlace> DIRECT_CODEC = ExtraCodecs.catchDecoderException(
 			RecordCodecBuilder.create(
 					apply -> apply.group(
-									ResourceLocation.CODEC.fieldOf("biome").forGetter(BiomePlace::biomeLocation),
-									ResourceLocation.CODEC.fieldOf("sound").forGetter(BiomePlace::soundLocation),
+									Identifier.CODEC.fieldOf("biome").forGetter(BiomePlace::biomeLocation),
+									Identifier.CODEC.fieldOf("sound").forGetter(BiomePlace::soundLocation),
 									Codec.FLOAT.optionalFieldOf("volume", 1.0F).forGetter(BiomePlace::getVolume),
 									Codec.FLOAT.optionalFieldOf("pitch", 1.0F).forGetter(BiomePlace::getPitch),
 									Codec.STRING.fieldOf("title").forGetter(BiomePlace::title),
@@ -40,15 +40,15 @@ public class BiomePlace extends BasePlace {
 	public static final Codec<Optional<WithConditions<BiomePlace>>> CONDITIONAL_CODEC = ConditionalOps.createConditionalCodecWithConditions(DIRECT_CODEC);
 
 
-	private final ResourceLocation biomeLocation;
+	private final Identifier biomeLocation;
 
-	public BiomePlace(ResourceLocation biomeLocation, ResourceLocation soundLocation, float volume, float pitch, String title,
+	public BiomePlace(Identifier biomeLocation, Identifier soundLocation, float volume, float pitch, String title,
 	                  String subtitle, int duration, int fadeInDuration, int fadeOutDuration) {
 		super(soundLocation, volume, pitch, title, subtitle, duration, fadeInDuration, fadeOutDuration);
 		this.biomeLocation = biomeLocation;
 	}
 
-	public ResourceLocation biomeLocation() {
+	public Identifier biomeLocation() {
 		return biomeLocation;
 	}
 
@@ -77,8 +77,7 @@ public class BiomePlace extends BasePlace {
 		if (biomeKey == null) {
 			return false;
 		}
-		ResourceLocation biomeID = biomeKey.location();
-		return biomeID != null && biomeID.equals(this.biomeLocation());
+		return biomeKey.identifier().equals(this.biomeLocation());
 	}
 
 	@Override

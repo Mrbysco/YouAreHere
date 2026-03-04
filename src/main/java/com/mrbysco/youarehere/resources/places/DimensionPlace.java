@@ -5,8 +5,8 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.mrbysco.youarehere.YouAreHere;
 import com.mrbysco.youarehere.registry.condition.PlaceType;
 import net.minecraft.core.Registry;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.common.conditions.ConditionalOps;
@@ -21,8 +21,8 @@ public class DimensionPlace extends BasePlace {
 	public static final Codec<DimensionPlace> DIRECT_CODEC = ExtraCodecs.catchDecoderException(
 			RecordCodecBuilder.create(
 					apply -> apply.group(
-									ResourceLocation.CODEC.fieldOf("dimension").forGetter(DimensionPlace::dimensionLocation),
-									ResourceLocation.CODEC.fieldOf("sound").forGetter(BasePlace::soundLocation),
+									Identifier.CODEC.fieldOf("dimension").forGetter(DimensionPlace::dimensionLocation),
+									Identifier.CODEC.fieldOf("sound").forGetter(BasePlace::soundLocation),
 									Codec.FLOAT.optionalFieldOf("volume", 1.0F).forGetter(BasePlace::getVolume),
 									Codec.FLOAT.optionalFieldOf("pitch", 1.0F).forGetter(BasePlace::getPitch),
 									Codec.STRING.fieldOf("title").forGetter(BasePlace::title),
@@ -36,15 +36,15 @@ public class DimensionPlace extends BasePlace {
 	);
 	public static final Codec<Optional<WithConditions<DimensionPlace>>> CONDITIONAL_CODEC = ConditionalOps.createConditionalCodecWithConditions(DIRECT_CODEC);
 
-	private final ResourceLocation dimensionLocation;
+	private final Identifier dimensionLocation;
 
-	public DimensionPlace(ResourceLocation dimensionLocation, ResourceLocation soundLocation, float volume, float pitch, String title,
+	public DimensionPlace(Identifier dimensionLocation, Identifier soundLocation, float volume, float pitch, String title,
 	                      String subtitle, int duration, int fadeInDuration, int fadeOutDuration) {
 		super(soundLocation, volume, pitch, title, subtitle, duration, fadeInDuration, fadeOutDuration);
 		this.dimensionLocation = dimensionLocation;
 	}
 
-	public ResourceLocation dimensionLocation() {
+	public Identifier dimensionLocation() {
 		return dimensionLocation;
 	}
 
@@ -68,7 +68,7 @@ public class DimensionPlace extends BasePlace {
 
 	@Override
 	public boolean matches(Player player) {
-		return player.level().dimension().location().equals(this.dimensionLocation());
+		return player.level().dimension().identifier().equals(this.dimensionLocation());
 	}
 
 	@Override

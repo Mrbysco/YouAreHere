@@ -3,7 +3,7 @@ package com.mrbysco.youarehere.datagen.client;
 import com.mrbysco.youarehere.YouAreHere;
 import com.mrbysco.youarehere.registry.PlaceSounds;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.neoforged.neoforge.common.data.SoundDefinitionsProvider;
 
 public class ModSoundProvider extends SoundDefinitionsProvider {
@@ -45,7 +45,7 @@ public class ModSoundProvider extends SoundDefinitionsProvider {
 		);
 	}
 
-	public ResourceLocation modLoc(String name) {
+	public Identifier modLoc(String name) {
 		return YouAreHere.modLoc(name);
 	}
 }

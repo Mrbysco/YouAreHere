@@ -10,8 +10,8 @@ import com.mrbysco.youarehere.resources.places.YLevelPlace;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.level.biome.Biome;
 
@@ -28,26 +28,26 @@ public class ModPlaceProvider extends PlaceProvider {
 		registerBiomes(registries);
 
 		addDimensionPlace("dimension_the_nether", new DimensionPlace(
-						ResourceLocation.withDefaultNamespace("the_nether"),
+						Identifier.withDefaultNamespace("the_nether"),
 						SoundEvents.UI_TOAST_CHALLENGE_COMPLETE.location(), 1.0F, 1.0F,
 						"youarehere.dimension.the_nether", "",
 						20, 20, 20),
 				new ConfigEnabledCondition(ConfigDefault.DIMENSION));
 		addDimensionPlace("dimension_the_end", new DimensionPlace(
-						ResourceLocation.withDefaultNamespace("the_end"),
+						Identifier.withDefaultNamespace("the_end"),
 						SoundEvents.UI_TOAST_CHALLENGE_COMPLETE.location(), 1.0F, 1.0F,
 						"youarehere.dimension.the_end", "",
 						20, 20, 20),
 				new ConfigEnabledCondition(ConfigDefault.DIMENSION));
 
 		addYLevelPlace("y_below_zero", new YLevelPlace(-64, 0,
-						ResourceLocation.withDefaultNamespace("overworld"),
+						Identifier.withDefaultNamespace("overworld"),
 						SoundEvents.LAVA_POP.location(), 1.0F, 1.0F,
 						"youarehere.dimension.below_zero", "",
 						20, 20, 20),
 				new ConfigEnabledCondition(ConfigDefault.Y_LEVEL));
 		addYLevelPlace("above_ceiling", new YLevelPlace(127, 256,
-						ResourceLocation.withDefaultNamespace("the_nether"),
+						Identifier.withDefaultNamespace("the_nether"),
 						SoundEvents.LAVA_POP.location(), 1.0F, 1.0F,
 						"youarehere.dimension.below_zero", "",
 						20, 20, 20),
@@ -63,11 +63,11 @@ public class ModPlaceProvider extends PlaceProvider {
 	}
 
 	private void registerBiomePlace(ResourceKey<Biome> key) {
-		ResourceLocation biomeLocation = key.location();
+		Identifier biomeLocation = key.identifier();
 		addBiomePlace("biome_" + biomeLocation.getPath(), generateBiomePlace(biomeLocation), new ConfigEnabledCondition(ConfigDefault.BIOME));
 	}
 
-	private BiomePlace generateBiomePlace(ResourceLocation biomeLocation) {
+	private BiomePlace generateBiomePlace(Identifier biomeLocation) {
 		String title = "biome." + biomeLocation.getNamespace() + "." + biomeLocation.getPath();
 		return new BiomePlace(biomeLocation, SoundEvents.UI_TOAST_IN.location(), 1.0F, 1.0F, title, "", 20, 20, 20);
 	}

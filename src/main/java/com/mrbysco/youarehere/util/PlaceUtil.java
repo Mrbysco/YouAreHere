@@ -8,7 +8,7 @@ import com.mrbysco.youarehere.resources.places.DimensionPlace;
 import com.mrbysco.youarehere.resources.places.YLevelPlace;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.OnDatapackSyncEvent;
@@ -18,11 +18,11 @@ import java.util.Map;
 
 @EventBusSubscriber
 public class PlaceUtil {
-	private static final Map<ResourceLocation, BiomePlace> biomePlaces = new HashMap<>();
-	private static final Map<ResourceLocation, DimensionPlace> dimensionPlaces = new HashMap<>();
-	private static final Map<ResourceLocation, YLevelPlace> yLevelPlaces = new HashMap<>();
+	private static final Map<Identifier, BiomePlace> biomePlaces = new HashMap<>();
+	private static final Map<Identifier, DimensionPlace> dimensionPlaces = new HashMap<>();
+	private static final Map<Identifier, YLevelPlace> yLevelPlaces = new HashMap<>();
 
-	public static Map<ResourceLocation, ? extends BasePlace> getPlaces(PlaceType type) {
+	public static Map<Identifier, ? extends BasePlace> getPlaces(PlaceType type) {
 		return switch (type) {
 			case BIOME -> biomePlaces;
 			case DIMENSION -> dimensionPlaces;
@@ -30,7 +30,7 @@ public class PlaceUtil {
 		};
 	}
 
-	public static BasePlace getPlace(PlaceType type, ResourceLocation id) {
+	public static BasePlace getPlace(PlaceType type, Identifier id) {
 		if (id.getPath().equals("y_below_zero")) {
 			System.out.println(type + " " + id);
 		}
@@ -47,17 +47,17 @@ public class PlaceUtil {
 
 		biomePlaces.clear();
 		final Registry<BiomePlace> biomePlaceRegistry = registryAccess.lookupOrThrow(BiomePlace.REGISTRY_KEY);
-		biomePlaceRegistry.entrySet().forEach((key) -> biomePlaces.put(key.getKey().location(), key.getValue()));
+		biomePlaceRegistry.entrySet().forEach((key) -> biomePlaces.put(key.getKey().identifier(), key.getValue()));
 		YouAreHere.LOGGER.info("Loaded Biome Places: {} places", biomePlaces.size());
 
 		dimensionPlaces.clear();
 		final Registry<DimensionPlace> dimensionPlaceRegistry = registryAccess.lookupOrThrow(DimensionPlace.REGISTRY_KEY);
-		dimensionPlaceRegistry.entrySet().forEach((key) -> dimensionPlaces.put(key.getKey().location(), key.getValue()));
+		dimensionPlaceRegistry.entrySet().forEach((key) -> dimensionPlaces.put(key.getKey().identifier(), key.getValue()));
 		YouAreHere.LOGGER.info("Loaded Dimension Places: {} places", dimensionPlaces.size());
 
 		yLevelPlaces.clear();
 		final Registry<YLevelPlace> yLevellaceRegistry = registryAccess.lookupOrThrow(YLevelPlace.REGISTRY_KEY);
-		yLevellaceRegistry.entrySet().forEach((key) -> yLevelPlaces.put(key.getKey().location(), key.getValue()));
+		yLevellaceRegistry.entrySet().forEach((key) -> yLevelPlaces.put(key.getKey().identifier(), key.getValue()));
 		YouAreHere.LOGGER.info("Loaded Y Level Places: {} places", yLevelPlaces.size());
 	}
 }

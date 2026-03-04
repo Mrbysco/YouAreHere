@@ -5,7 +5,7 @@ import com.mrbysco.youarehere.registry.condition.PlaceType;
 import com.mrbysco.youarehere.resources.places.BasePlace;
 import com.mrbysco.youarehere.util.PlaceUtil;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -24,17 +24,17 @@ public class TitleHandler {
 				CompoundTag persistentData = player.getPersistentData();
 				CompoundTag hereData = persistentData.contains("YouAreHere") ? persistentData.getCompoundOrEmpty("YouAreHere") : new CompoundTag();
 				if (!PlaceUtil.getPlaces(PlaceType.BIOME).isEmpty()) {
-					for (Map.Entry<ResourceLocation, ? extends BasePlace> placeEntry : PlaceUtil.getPlaces(PlaceType.BIOME).entrySet()) {
+					for (Map.Entry<Identifier, ? extends BasePlace> placeEntry : PlaceUtil.getPlaces(PlaceType.BIOME).entrySet()) {
 						checkPlace(player, placeEntry, hereData);
 					}
 				}
 				if (!PlaceUtil.getPlaces(PlaceType.DIMENSION).isEmpty()) {
-					for (Map.Entry<ResourceLocation, ? extends BasePlace> placeEntry : PlaceUtil.getPlaces(PlaceType.DIMENSION).entrySet()) {
+					for (Map.Entry<Identifier, ? extends BasePlace> placeEntry : PlaceUtil.getPlaces(PlaceType.DIMENSION).entrySet()) {
 						checkPlace(player, placeEntry, hereData);
 					}
 				}
 				if (!PlaceUtil.getPlaces(PlaceType.Y_LEVEL).isEmpty()) {
-					for (Map.Entry<ResourceLocation, ? extends BasePlace> placeEntry : PlaceUtil.getPlaces(PlaceType.Y_LEVEL).entrySet()) {
+					for (Map.Entry<Identifier, ? extends BasePlace> placeEntry : PlaceUtil.getPlaces(PlaceType.Y_LEVEL).entrySet()) {
 						checkPlace(player, placeEntry, hereData);
 					}
 				}
@@ -43,8 +43,8 @@ public class TitleHandler {
 		}
 	}
 
-	private static void checkPlace(ServerPlayer player, Map.Entry<ResourceLocation, ? extends BasePlace> entry, CompoundTag hereData) {
-		final ResourceLocation id = entry.getKey();
+	private static void checkPlace(ServerPlayer player, Map.Entry<Identifier, ? extends BasePlace> entry, CompoundTag hereData) {
+		final Identifier id = entry.getKey();
 		String idName = entry.toString();
 		final BasePlace place = entry.getValue();
 		boolean cachedValue = hereData.getBooleanOr(idName, false);
