@@ -17,7 +17,7 @@ public abstract class BasePlace {
 	protected final int fadeOutDuration;
 
 	public BasePlace(ResourceLocation id, ResourceLocation soundLocation, float volume, float pitch, String title,
-					 String subtitle, int duration, int fadeInDuration, int fadeOutDuration) {
+	                 String subtitle, int duration, int fadeInDuration, int fadeOutDuration) {
 		this.id = id;
 		this.soundLocation = soundLocation;
 		this.volume = volume;

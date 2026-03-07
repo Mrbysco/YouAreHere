@@ -13,7 +13,7 @@ public class DimensionPlace extends BasePlace {
 	private final ResourceLocation dimensionLocation;
 
 	public DimensionPlace(ResourceLocation id, ResourceLocation soundLocation, float volume, float pitch, String title,
-						  String subtitle, int duration, int fadeInDuration, int fadeOutDuration, ResourceLocation dimensionLocation) {
+	                      String subtitle, int duration, int fadeInDuration, int fadeOutDuration, ResourceLocation dimensionLocation) {
 		super(id, soundLocation, volume, pitch, title, subtitle, duration, fadeInDuration, fadeOutDuration);
 		this.dimensionLocation = dimensionLocation;
 	}

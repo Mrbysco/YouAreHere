@@ -17,7 +17,7 @@ public class YPlace extends BasePlace {
 	private final ResourceLocation dimensionLocation;
 
 	public YPlace(ResourceLocation id, ResourceLocation soundLocation, float volume, float pitch, String title,
-				  String subtitle, int duration, int fadeInDuration, int fadeOutDuration, int minY, int maxY, ResourceLocation dimensionLocation) {
+	              String subtitle, int duration, int fadeInDuration, int fadeOutDuration, int minY, int maxY, ResourceLocation dimensionLocation) {
 		super(id, soundLocation, volume, pitch, title, subtitle, duration, fadeInDuration, fadeOutDuration);
 		this.minY = minY;
 		this.maxY = maxY;
