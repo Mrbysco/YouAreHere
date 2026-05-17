@@ -24,7 +24,7 @@ public class YLevelPlace extends BasePlace {
 					apply -> apply.group(
 									Codec.INT.fieldOf("minY").forGetter(YLevelPlace::minY),
 									Codec.INT.fieldOf("maxY").forGetter(YLevelPlace::maxY),
-									Identifier.CODEC.fieldOf("dimension").forGetter(YLevelPlace::dimensionLocation),
+									Identifier.CODEC.optionalFieldOf("dimension").forGetter(YLevelPlace::dimensionLocation),
 									Identifier.CODEC.fieldOf("sound").forGetter(BasePlace::soundLocation),
 									Codec.FLOAT.optionalFieldOf("volume", 1.0F).forGetter(BasePlace::getVolume),
 									Codec.FLOAT.optionalFieldOf("pitch", 1.0F).forGetter(BasePlace::getPitch),
@@ -42,14 +42,19 @@ public class YLevelPlace extends BasePlace {
 	private final int minY;
 	private final int maxY;
 	@Nullable
-	private final Identifier dimensionLocation;
+	private final Optional<Identifier> dimensionLocation;
 
-	public YLevelPlace(int minY, int maxY, Identifier dimensionLocation, Identifier soundLocation, float volume, float pitch, String title,
+	public YLevelPlace(int minY, int maxY, Optional<Identifier> dimensionLocation, Identifier soundLocation, float volume, float pitch, String title,
 	                   String subtitle, int duration, int fadeInDuration, int fadeOutDuration) {
 		super(soundLocation, volume, pitch, title, subtitle, duration, fadeInDuration, fadeOutDuration);
 		this.minY = minY;
 		this.maxY = maxY;
 		this.dimensionLocation = dimensionLocation;
+	}
+
+	public YLevelPlace(int minY, int maxY, @Nullable Identifier dimensionLocation, Identifier soundLocation, float volume, float pitch, String title,
+	                   String subtitle, int duration, int fadeInDuration, int fadeOutDuration) {
+		this(minY, maxY, Optional.ofNullable(dimensionLocation), soundLocation, volume, pitch, title, subtitle, duration, fadeInDuration, fadeOutDuration);
 	}
 
 	public int minY() {
@@ -60,7 +65,7 @@ public class YLevelPlace extends BasePlace {
 		return maxY;
 	}
 
-	public Identifier dimensionLocation() {
+	public Optional<Identifier> dimensionLocation() {
 		return dimensionLocation;
 	}
 
