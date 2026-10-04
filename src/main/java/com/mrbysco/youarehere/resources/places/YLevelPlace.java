@@ -44,7 +44,7 @@ public class YLevelPlace extends BasePlace {
 	@Nullable
 	private final Optional<Identifier> dimensionLocation;
 
-	public YLevelPlace(int minY, int maxY, Optional<Identifier> dimensionLocation, Identifier soundLocation, float volume, float pitch, String title,
+	public YLevelPlace(int minY, int maxY, @Nullable Optional<Identifier> dimensionLocation, Identifier soundLocation, float volume, float pitch, String title,
 	                   String subtitle, int duration, int fadeInDuration, int fadeOutDuration) {
 		super(soundLocation, volume, pitch, title, subtitle, duration, fadeInDuration, fadeOutDuration);
 		this.minY = minY;
