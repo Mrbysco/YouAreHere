@@ -7,10 +7,10 @@ import com.mrbysco.youarehere.resources.places.BiomePlace;
 import com.mrbysco.youarehere.resources.places.DimensionPlace;
 import com.mrbysco.youarehere.resources.places.YLevelPlace;
 import net.neoforged.neoforge.common.conditions.ICondition;
-import net.neoforged.neoforge.registries.NewDatapackRegistryEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
+import net.neoforged.neoforge.registries.NewDatapackRegistryEvent;
 
 public class PlaceTypeRegistry {
 	public static void onNewRegistry(NewDatapackRegistryEvent event) {
