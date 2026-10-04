@@ -19,7 +19,7 @@ public class PlaceDatagen {
 		generator.addProvider(true, new ModLanguageProvider(packOutput));
 		generator.addProvider(true, new ModSoundProvider(packOutput));
 
-		generator.addProvider(true, new ModPlaceProvider(packOutput, event.getLookupProvider()));
+		generator.addProvider(true, new ModPlaceProvider(packOutput, event.getWorldLookupProvider()));
 
 	}
 }

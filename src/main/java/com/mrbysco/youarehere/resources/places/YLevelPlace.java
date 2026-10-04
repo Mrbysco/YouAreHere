@@ -91,7 +91,7 @@ public class YLevelPlace extends BasePlace {
 
 	@Override
 	public boolean matches(Player player) {
-		boolean dimensionMatches = dimensionLocation() == null || player.level().dimension().identifier().equals(dimensionLocation());
+		boolean dimensionMatches = dimensionLocation().isEmpty() || player.level().dimension().identifier().equals(dimensionLocation());
 		return player.getY() >= this.minY() && player.getY() <= this.maxY() && dimensionMatches;
 	}
 
