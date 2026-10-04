@@ -21,7 +21,7 @@ public class YouAreHere {
 	public static final Logger LOGGER = LogUtils.getLogger();
 
 	public YouAreHere(IEventBus eventBus, ModContainer container, Dist dist) {
-		container.registerConfig(Type.LOCAL, HereConfig.commonSpec);
+		container.registerConfig(Type.COMMON, HereConfig.commonSpec);
 
 		PlaceTypeRegistry.CONDITION_CODECS.register(eventBus);
 
