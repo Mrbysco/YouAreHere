@@ -11,6 +11,7 @@ import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.common.conditions.ICondition;
 import net.neoforged.neoforge.common.conditions.WithConditions;
+import org.jspecify.annotations.NonNull;
 
 import java.nio.file.Path;
 import java.util.Arrays;
@@ -36,7 +37,7 @@ public abstract class PlaceProvider implements DataProvider {
 	}
 
 	@Override
-	public final CompletableFuture<?> run(CachedOutput cache) {
+	public final @NonNull CompletableFuture<?> run(@NonNull CachedOutput cache) {
 		return this.registries.thenCompose(registries -> this.run(cache, registries));
 	}
 
@@ -99,7 +100,7 @@ public abstract class PlaceProvider implements DataProvider {
 	}
 
 	@Override
-	public String getName() {
+	public @NonNull String getName() {
 		return "Places: " + modid;
 	}
 }

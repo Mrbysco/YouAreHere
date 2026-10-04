@@ -6,6 +6,7 @@ import com.mrbysco.youarehere.registry.condition.PlaceType;
 import com.mrbysco.youarehere.resources.places.BasePlace;
 import com.mrbysco.youarehere.util.PlaceUtil;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvent;
@@ -28,14 +29,14 @@ public class ClientPayloadHandler {
 						YouAreHere.LOGGER.error("Failed to find place with id: {}", payload.place());
 						return;
 					}
-					net.minecraft.client.Minecraft minecraft = net.minecraft.client.Minecraft.getInstance();
+					Minecraft minecraft = Minecraft.getInstance();
 					Player player = minecraft.player;
-					minecraft.gui.clearTitles();
-					minecraft.gui.resetTitleTimes();
-					minecraft.gui.setTimes(place.fadeInDuration(), place.duration(), place.fadeOutDuration());
-					minecraft.gui.setTitle(Component.translatable(place.title()).withStyle(ChatFormatting.UNDERLINE));
+					minecraft.gui.hud.clearTitles();
+					minecraft.gui.hud.resetTitleTimes();
+					minecraft.gui.hud.setTimes(place.fadeInDuration(), place.duration(), place.fadeOutDuration());
+					minecraft.gui.hud.setTitle(Component.translatable(place.title()).withStyle(ChatFormatting.UNDERLINE));
 					if (!place.subtitle().isEmpty())
-						minecraft.gui.setSubtitle(Component.translatable(place.subtitle()));
+						minecraft.gui.hud.setSubtitle(Component.translatable(place.subtitle()));
 
 					if (place.soundLocation() != null) {
 						SoundEvent sound = BuiltInRegistries.SOUND_EVENT.getValue(place.soundLocation());
